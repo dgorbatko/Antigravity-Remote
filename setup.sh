@@ -3,9 +3,12 @@
 # Interactive installer using whiptail for GUI dialogs
 set -e
 
-SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-CONFIG_FILE="$SCRIPT_DIR/config.json"
-SERVICE_NAME="antigravity-remote"
+# Detect script location or curl execution
+if [ -n "$BASH_SOURCE" ]; then
+    SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+else
+    SCRIPT_DIR="$PWD"
+fi
 
 # Colors for terminal output
 RED='\033[0;31m'
@@ -19,6 +22,39 @@ log_ok()    { echo -e "${GREEN}[OK]${NC} $1"; }
 log_warn()  { echo -e "${YELLOW}[WARN]${NC} $1"; }
 log_err()   { echo -e "${RED}[ERROR]${NC} $1"; }
 
+# ═══════════════════════════════════════════════════════════
+# Bootstrap for One-Liner Install from GitHub
+# ═══════════════════════════════════════════════════════════
+if [ ! -f "$SCRIPT_DIR/server.js" ]; then
+    log_info "Running via network (curl/wget). Setting up local repository..."
+    INSTALL_DIR="$HOME/.antigravity-remote"
+    
+    if command -v whiptail &>/dev/null; then
+        USER_INPUT=$(whiptail --title "Installation Directory" --inputbox "Where should Antigravity Remote be installed?" 10 60 "$INSTALL_DIR" 3>&1 1>&2 2>&3) || exit 1
+        INSTALL_DIR="${USER_INPUT:-$INSTALL_DIR}"
+    fi
+    
+    if [ -d "$INSTALL_DIR/.git" ]; then
+        log_info "Updating existing installation at $INSTALL_DIR..."
+        cd "$INSTALL_DIR" && git pull || true
+    else
+        log_info "Cloning repository to $INSTALL_DIR..."
+        if ! command -v git &>/dev/null; then
+            log_err "Git is not installed. Please install git first."
+            exit 1
+        fi
+        git clone https://github.com/dgorbatko/Antigravity-Remote.git "$INSTALL_DIR"
+    fi
+    
+    log_info "Launching setup from $INSTALL_DIR..."
+    exec bash "$INSTALL_DIR/setup.sh"
+    exit 0
+fi
+
+CONFIG_FILE="$SCRIPT_DIR/config.json"
+ENV_FILE="$SCRIPT_DIR/.env"
+SERVICE_NAME="antigravity-remote"
+
 # Check if whiptail is available, fall back to dialog
 if command -v whiptail &>/dev/null; then
     DLG="whiptail"
@@ -29,17 +65,38 @@ else
     log_info "Installing whiptail..."
     if command -v apt-get &>/dev/null; then
         sudo apt-get install -y whiptail
-        DLG="whiptail"
     elif command -v dnf &>/dev/null; then
         sudo dnf install -y newt
-        DLG="whiptail"
     elif command -v pacman &>/dev/null; then
         sudo pacman -S --noconfirm libnewt
-        DLG="whiptail"
     else
         log_err "Cannot install whiptail. Please install it manually."
         exit 1
     fi
+    DLG="whiptail"
+fi
+
+# Load existing defaults if re-running
+DEFAULT_PROJECTS="$HOME/Projects"
+DEFAULT_DOMAIN=""
+DEFAULT_PORT="3001"
+DEFAULT_PIN=""
+
+if [ -f "$CONFIG_FILE" ]; then
+    # Simple grep parsing for existing JSON config
+    P=$(grep '"projectsDir"' "$CONFIG_FILE" | cut -d'"' -f4)
+    [ -n "$P" ] && DEFAULT_PROJECTS="$P"
+    
+    D=$(grep '"domain"' "$CONFIG_FILE" | cut -d'"' -f4)
+    [ -n "$D" ] && DEFAULT_DOMAIN="$D"
+    
+    PORT=$(grep '"port"' "$CONFIG_FILE" | awk -F': ' '{print $2}' | tr -d ',' | tr -d ' ')
+    [ -n "$PORT" ] && DEFAULT_PORT="$PORT"
+fi
+
+if [ -f "$ENV_FILE" ]; then
+    PIN=$(grep 'APP_PASSWORD=' "$ENV_FILE" | cut -d'=' -f2)
+    [ -n "$PIN" ] && DEFAULT_PIN="$PIN"
 fi
 
 # ═══════════════════════════════════════════════════════════
@@ -48,22 +105,20 @@ fi
 $DLG --title "Antigravity Remote — Setup Wizard" --msgbox "\
 Welcome to the Antigravity Remote setup wizard!
 
-This installer will configure:
+This installer will configure or update:
 
   1. 📁 Projects directory — where your coding projects live
   2. 🌐 DDNS domain — for remote access from anywhere
   3. 🔒 Let's Encrypt SSL — free trusted HTTPS certificate
-  4. 📦 Dependencies — Node.js, certbot, etc.
+  4. 🔑 Web UI PIN Code — secure access password
   5. ⚙️  System service — auto-start on boot
-  6. 🔑 Access password — for remote authentication
 
 Press OK to begin." 20 60
 
 # ═══════════════════════════════════════════════════════════
 # Step 1: Projects Directory
 # ═══════════════════════════════════════════════════════════
-DEFAULT_PROJECTS="$HOME/Projects"
-PROJECTS_DIR=$($DLG --title "Step 1/7: Projects Directory" \
+PROJECTS_DIR=$($DLG --title "Step 1/6: Projects Directory" \
     --inputbox "\
 Enter the path to the directory containing all your coding projects.
 
@@ -85,42 +140,51 @@ if [ ! -d "$PROJECTS_DIR" ]; then
 fi
 
 # ═══════════════════════════════════════════════════════════
-# Step 2: DDNS Provider Recommendation
+# Step 2: Web UI PIN Code / Password
 # ═══════════════════════════════════════════════════════════
-$DLG --title "Step 2/7: DDNS Setup — Info" --msgbox "\
-To access Antigravity Remote from outside your local network,
+APP_PASSWORD=$($DLG --title "Step 2/6: Web UI PIN Code" \
+    --passwordbox "\
+Set a PIN code or password for the Antigravity Remote Web UI.
+
+This protects your AI sessions from unauthorized access from the internet.
+(The server includes built-in brute-force protection to prevent hacking this PIN)
+
+Leave blank to keep existing password, or enter a new one." \
+    15 65 3>&1 1>&2 2>&3) || exit 1
+
+if [ -z "$APP_PASSWORD" ]; then
+    if [ -n "$DEFAULT_PIN" ]; then
+        APP_PASSWORD="$DEFAULT_PIN"
+        log_info "Keeping existing PIN code."
+    else
+        APP_PASSWORD="antigravity"
+        log_warn "No PIN set, using default: antigravity"
+    fi
+fi
+
+# ═══════════════════════════════════════════════════════════
+# Step 3: DDNS Provider Recommendation & Domain
+# ═══════════════════════════════════════════════════════════
+if [ -z "$DEFAULT_DOMAIN" ]; then
+    $DLG --title "Step 3/6: DDNS Setup" --msgbox "\
+To access Antigravity Remote securely from outside your local network,
 you need a Dynamic DNS (DDNS) hostname.
 
 Recommended FREE DDNS providers:
+  🦆 Duck DNS (duckdns.org)
+  🌐 No-IP (noip.com)
+  🔄 Dynu (dynu.com)
 
-  🦆 Duck DNS        — https://duckdns.org
-     Simple, free, works great with Let's Encrypt.
-     Just sign in with GitHub/Google, create a subdomain.
+Press OK to enter your DDNS hostname." 16 65
+fi
 
-  🌐 No-IP           — https://noip.com
-     Popular, free tier (requires renewal every 30 days).
-
-  🔄 Dynu            — https://dynu.com
-     Free, supports many DNS record types.
-
-  💡 Afraid.org       — https://freedns.afraid.org
-     Massive selection of free domain suffixes.
-
-Sign up with any provider, create a hostname, and configure
-your router or a DDNS update client to keep it current.
-
-Press OK when you have your DDNS hostname ready." 26 65
-
-# ═══════════════════════════════════════════════════════════
-# Step 3: DDNS Domain Input
-# ═══════════════════════════════════════════════════════════
-DDNS_DOMAIN=$($DLG --title "Step 3/7: DDNS Domain" \
+DDNS_DOMAIN=$($DLG --title "Step 3/6: DDNS Domain" \
     --inputbox "\
 Enter your DDNS hostname (e.g. mypc.duckdns.org).
 
-If you want to skip DDNS and use only local network,
+If you want to skip DDNS and use only local network (HTTP),
 leave this empty and press OK." \
-    12 60 "" 3>&1 1>&2 2>&3) || exit 1
+    12 60 "$DEFAULT_DOMAIN" 3>&1 1>&2 2>&3) || exit 1
 
 USE_LETSENCRYPT=false
 CERT_PATH=""
@@ -131,7 +195,7 @@ KEY_PATH=""
 # ═══════════════════════════════════════════════════════════
 LE_EMAIL=""
 if [ -n "$DDNS_DOMAIN" ]; then
-    LE_EMAIL=$($DLG --title "Step 4/7: Let's Encrypt SSL" \
+    LE_EMAIL=$($DLG --title "Step 4/6: Let's Encrypt SSL" \
         --inputbox "\
 Enter your email for Let's Encrypt certificate registration.
 
@@ -149,48 +213,33 @@ fi
 # ═══════════════════════════════════════════════════════════
 # Step 5: Server Port
 # ═══════════════════════════════════════════════════════════
-SERVER_PORT=$($DLG --title "Step 5/7: Server Port" \
+if [ "$USE_LETSENCRYPT" = true ]; then
+    DEFAULT_PORT="443"
+fi
+
+SERVER_PORT=$($DLG --title "Step 5/6: Server Port" \
     --inputbox "\
 Enter the port for Antigravity Remote.
 
 Default: 443 (standard HTTPS) if using Let's Encrypt
-Default: 3000 if using local network only
+Default: 3001 if using local network only
 
-Ports below 1024 require root or a reverse proxy." \
-    14 60 "$([ "$USE_LETSENCRYPT" = true ] && echo '443' || echo '3000')" \
-    3>&1 1>&2 2>&3) || exit 1
-
-# ═══════════════════════════════════════════════════════════
-# Step 6: Access Password
-# ═══════════════════════════════════════════════════════════
-APP_PASSWORD=$($DLG --title "Step 6/7: Access Password" \
-    --passwordbox "\
-Set a password for remote access to Antigravity Remote.
-
-This protects your AI sessions from unauthorized access.
-Local network devices will NOT need this password.
-
-Minimum 6 characters recommended." \
-    14 60 3>&1 1>&2 2>&3) || exit 1
-
-if [ -z "$APP_PASSWORD" ]; then
-    APP_PASSWORD="antigravity"
-    log_warn "No password set, using default: antigravity"
-fi
+Note: Ports below 1024 require root or a reverse proxy." \
+    14 60 "$DEFAULT_PORT" 3>&1 1>&2 2>&3) || exit 1
 
 # ═══════════════════════════════════════════════════════════
-# Step 7: Install Dependencies
+# Step 6: Install Dependencies
 # ═══════════════════════════════════════════════════════════
-$DLG --title "Step 7/7: Install Dependencies" --msgbox "\
+$DLG --title "Step 6/6: Install Dependencies" --msgbox "\
 The installer will now:
 
   1. ✅ Install Node.js (if not present)
   2. ✅ Install npm packages
-  3. $([ "$USE_LETSENCRYPT" = true ] && echo '✅ Install certbot and obtain SSL certificate' || echo '⏭️  Skip SSL (no DDNS configured)')
+  3. $([ "$USE_LETSENCRYPT" = true ] && echo '✅ Install certbot and obtain SSL certificate' || echo '⏭️  Skip SSL (no DDNS)')
   4. ✅ Write configuration
-  5. ✅ Install systemd service
+  5. ✅ Configure/Update systemd service
 
-Press OK to proceed." 16 60
+Press OK to proceed." 16 65
 
 # Install Node.js if not present
 if ! command -v node &>/dev/null; then
@@ -246,7 +295,7 @@ if [ "$USE_LETSENCRYPT" = true ]; then
         -d "$DDNS_DOMAIN" \
         --non-interactive || {
             log_err "certbot failed. Make sure:"
-            log_err "  1. Port 80 is open and forwarded to this machine"
+            log_err "  1. Port 80 is forwarded to this machine in your router"
             log_err "  2. Your DDNS domain ($DDNS_DOMAIN) points to your public IP"
             log_err "  3. No other service is using port 80"
             log_warn "You can retry later with: sudo certbot certonly --standalone -d $DDNS_DOMAIN"
@@ -261,6 +310,14 @@ if [ "$USE_LETSENCRYPT" = true ]; then
         CRON_LINE="0 3 * * 1 certbot renew --quiet --post-hook 'systemctl restart $SERVICE_NAME'"
         (sudo crontab -l 2>/dev/null | grep -v certbot; echo "$CRON_LINE") | sudo crontab -
         log_ok "Auto-renewal cron installed (every Monday at 3 AM)"
+    fi
+else
+    # Keep existing paths if they exist
+    if [ -f "$CONFIG_FILE" ]; then
+        C=$(grep '"sslCertPath"' "$CONFIG_FILE" | cut -d'"' -f4)
+        [ -n "$C" ] && CERT_PATH="$C"
+        K=$(grep '"sslKeyPath"' "$CONFIG_FILE" | cut -d'"' -f4)
+        [ -n "$K" ] && KEY_PATH="$K"
     fi
 fi
 
@@ -284,23 +341,34 @@ EOF
 log_ok "Configuration written to $CONFIG_FILE"
 
 # Write .env file
-cat > "$SCRIPT_DIR/.env" << EOF
+# We don't overwrite SESSION_SECRET or AUTH_SALT if they exist
+SESSION_SECRET=$(grep 'SESSION_SECRET=' "$ENV_FILE" 2>/dev/null | cut -d'=' -f2 || true)
+AUTH_SALT=$(grep 'AUTH_SALT=' "$ENV_FILE" 2>/dev/null | cut -d'=' -f2 || true)
+
+[ -z "$SESSION_SECRET" ] && SESSION_SECRET=$(head -c 32 /dev/urandom | base64 | tr -d '+/' | head -c 24)
+[ -z "$AUTH_SALT" ] && AUTH_SALT=$(head -c 16 /dev/urandom | base64 | tr -d '+/' | head -c 12)
+
+cat > "$ENV_FILE" << EOF
 PORT=$SERVER_PORT
 APP_PASSWORD=$APP_PASSWORD
+SESSION_SECRET=$SESSION_SECRET
+AUTH_SALT=$AUTH_SALT
 EOF
 
-log_ok ".env file updated"
+log_ok ".env file updated with secure salts"
 
 # ═══════════════════════════════════════════════════════════
 # Install systemd service
 # ═══════════════════════════════════════════════════════════
 if command -v systemctl &>/dev/null; then
-    log_info "Installing systemd service..."
+    log_info "Configuring systemd service..."
 
     CURRENT_USER=$(whoami)
     NODE_PATH=$(which node)
 
-    sudo tee /etc/systemd/system/${SERVICE_NAME}.service > /dev/null << EOF
+    # Use a temporary file to prevent empty sudo tee issues
+    TMP_SERVICE=$(mktemp)
+    cat > "$TMP_SERVICE" << EOF
 [Unit]
 Description=Antigravity Remote — AI Session Remote Control
 After=network.target
@@ -319,11 +387,15 @@ Environment=NODE_ENV=production
 WantedBy=multi-user.target
 EOF
 
+    sudo mv "$TMP_SERVICE" /etc/systemd/system/${SERVICE_NAME}.service
     sudo systemctl daemon-reload
     sudo systemctl enable ${SERVICE_NAME}
-    log_ok "systemd service installed and enabled"
+    
+    # Restart the service to apply changes
+    sudo systemctl restart ${SERVICE_NAME}
+    log_ok "systemd service installed, enabled, and restarted"
 else
-    log_warn "systemd not found, skipping service installation"
+    log_warn "systemd not found, skipping service configuration"
 fi
 
 # ═══════════════════════════════════════════════════════════
@@ -337,17 +409,14 @@ fi
 PORTS_INFO+="  Port $SERVER_PORT — Antigravity Remote web interface (TCP inbound)\n"
 PORTS_INFO+="  Port 9000 — Antigravity CDP debug port (local only, no forwarding needed)\n"
 PORTS_INFO+="\nForward the above ports in your router to this machine's local IP.\n"
-PORTS_INFO+="Port 9000 is used only locally and does NOT need to be forwarded."
+PORTS_INFO+="CDP Port (9000) is used only locally and does NOT need to be forwarded."
 
 $DLG --title "Setup Complete! 🎉" --msgbox "$PORTS_INFO\n\n\
-To start the service now:\n\
-  sudo systemctl start $SERVICE_NAME\n\n\
-To check status:\n\
+Your Web UI PIN Code is active and protected against brute-force attacks.\n\n\
+To check service status:\n\
   sudo systemctl status $SERVICE_NAME\n\n\
-To view logs:\n\
-  journalctl -u $SERVICE_NAME -f\n\n\
-Or run manually:\n\
-  cd $SCRIPT_DIR && node server.js" 24 65
+To view live logs:\n\
+  journalctl -u $SERVICE_NAME -f" 24 68
 
 log_ok "Antigravity Remote setup complete!"
 echo ""
@@ -356,5 +425,6 @@ echo "  Configuration: $CONFIG_FILE"
 echo "  Service name:  $SERVICE_NAME"
 echo "  Projects dir:  $PROJECTS_DIR"
 [ -n "$DDNS_DOMAIN" ] && echo "  Domain:        $DDNS_DOMAIN"
+[ -n "$APP_PASSWORD" ] && echo "  Security:      PIN protection ACTIVE"
 echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
 echo ""

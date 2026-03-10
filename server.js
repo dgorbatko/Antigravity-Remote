@@ -1632,19 +1632,101 @@ async function createServer() {
     // Static Files (Publicly accessible for complete PWA offline caching compliance)
     app.use(express.static(join(__dirname, 'public')));
 
+    // ── Brute-force Protection ──
+    const loginAttempts = new Map(); // IP → { count, lastAttempt, lockedUntil }
+    const MAX_ATTEMPTS = 5;
+    const LOCKOUT_MS = 15 * 60 * 1000; // 15 minutes
+    const ATTEMPT_WINDOW_MS = 10 * 60 * 1000; // 10 minutes
+
+    function getClientIP(req) {
+        return req.headers['x-forwarded-for']?.split(',')[0]?.trim() || 
+               req.connection?.remoteAddress || 
+               req.ip || 'unknown';
+    }
+
+    function checkRateLimit(ip) {
+        const record = loginAttempts.get(ip);
+        if (!record) return { allowed: true };
+        
+        // Check if locked out
+        if (record.lockedUntil && Date.now() < record.lockedUntil) {
+            const remainingSec = Math.ceil((record.lockedUntil - Date.now()) / 1000);
+            return { allowed: false, remainingSec };
+        }
+        
+        // Reset if window expired
+        if (Date.now() - record.lastAttempt > ATTEMPT_WINDOW_MS) {
+            loginAttempts.delete(ip);
+            return { allowed: true };
+        }
+        
+        return { allowed: record.count < MAX_ATTEMPTS };
+    }
+
+    function recordFailedAttempt(ip) {
+        const record = loginAttempts.get(ip) || { count: 0, lastAttempt: 0, lockedUntil: null };
+        record.count++;
+        record.lastAttempt = Date.now();
+        
+        if (record.count >= MAX_ATTEMPTS) {
+            record.lockedUntil = Date.now() + LOCKOUT_MS;
+            console.log(`🔒 IP ${ip} locked out for ${LOCKOUT_MS / 60000} minutes after ${record.count} failed login attempts`);
+        }
+        
+        loginAttempts.set(ip, record);
+    }
+
+    function resetAttempts(ip) {
+        loginAttempts.delete(ip);
+    }
+
+    // Clean up old entries every 30 minutes
+    setInterval(() => {
+        const now = Date.now();
+        for (const [ip, record] of loginAttempts) {
+            if (now - record.lastAttempt > LOCKOUT_MS * 2) {
+                loginAttempts.delete(ip);
+            }
+        }
+    }, 30 * 60 * 1000);
+
     // Login & Logout endpoints (Public)
     app.post('/login', (req, res) => {
-        const { password } = req.body;
-        if (password === APP_PASSWORD) {
-            res.cookie(AUTH_COOKIE_NAME, AUTH_TOKEN, {
-                httpOnly: true,
-                signed: true,
-                maxAge: 30 * 24 * 60 * 60 * 1000 // 30 days
+        const clientIP = getClientIP(req);
+        const rateCheck = checkRateLimit(clientIP);
+        
+        if (!rateCheck.allowed) {
+            console.log(`🚫 Login blocked for ${clientIP} (rate limited, ${rateCheck.remainingSec}s remaining)`);
+            return res.status(429).json({ 
+                success: false, 
+                error: `Too many failed attempts. Try again in ${Math.ceil(rateCheck.remainingSec / 60)} minutes.`,
+                retryAfter: rateCheck.remainingSec
             });
-            res.json({ success: true });
-        } else {
-            res.status(401).json({ success: false, error: 'Invalid password' });
         }
+
+        const { password } = req.body;
+        
+        // Add 200ms delay to slow down automated attacks
+        setTimeout(() => {
+            if (password === APP_PASSWORD) {
+                resetAttempts(clientIP);
+                res.cookie(AUTH_COOKIE_NAME, AUTH_TOKEN, {
+                    httpOnly: true,
+                    signed: true,
+                    maxAge: 30 * 24 * 60 * 60 * 1000 // 30 days
+                });
+                res.json({ success: true });
+            } else {
+                recordFailedAttempt(clientIP);
+                const remaining = MAX_ATTEMPTS - ((loginAttempts.get(clientIP)?.count) || 0);
+                res.status(401).json({ 
+                    success: false, 
+                    error: remaining > 0 
+                        ? `Invalid password. ${remaining} attempts remaining.`
+                        : `Too many failed attempts. Locked for ${LOCKOUT_MS / 60000} minutes.`
+                });
+            }
+        }, 200);
     });
 
     app.post('/logout', (req, res) => {
