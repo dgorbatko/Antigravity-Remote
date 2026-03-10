@@ -191,29 +191,53 @@ CERT_PATH=""
 KEY_PATH=""
 
 # ═══════════════════════════════════════════════════════════
-# Step 4: Let's Encrypt Email (only if DDNS configured)
+# Step 4: SSL Certificate Setup (Let's Encrypt or Custom)
 # ═══════════════════════════════════════════════════════════
 LE_EMAIL=""
 if [ -n "$DDNS_DOMAIN" ]; then
-    LE_EMAIL=$($DLG --title "Step 4/6: Let's Encrypt SSL" \
-        --inputbox "\
+    if $DLG --title "Step 4/6: SSL Certificate" --yesno "\
+Do you already have SSL certificate files (fullchain.pem / privkey.pem) on this machine that you want to use?
+
+Choose YES to provide paths to existing certificates.
+Choose NO to automatically generate new ones using Let's Encrypt." 12 70; then
+        
+        # User has existing certs
+        USE_LETSENCRYPT=false
+        
+        CERT_PATH=$($DLG --title "Existing Certificate" \
+            --inputbox "Enter the absolute path to your certificate file (e.g. fullchain.pem or .crt):" \
+            10 70 "$CERT_PATH" 3>&1 1>&2 2>&3) || exit 1
+            
+        KEY_PATH=$($DLG --title "Existing Private Key" \
+            --inputbox "Enter the absolute path to your private key file (e.g. privkey.pem or .key):" \
+            10 70 "$KEY_PATH" 3>&1 1>&2 2>&3) || exit 1
+            
+        if [ ! -f "$CERT_PATH" ] || [ ! -f "$KEY_PATH" ]; then
+            log_warn "One or both certificate files not found at specified paths. They will be saved in config, but HTTPS might fail to start if they remain missing."
+        fi
+        
+    else
+        # User wants to use certbot
+        LE_EMAIL=$($DLG --title "Step 4/6: Let's Encrypt SSL" \
+            --inputbox "\
 Enter your email for Let's Encrypt certificate registration.
 
 This is used for certificate expiry notifications only.
 Let's Encrypt provides free, trusted HTTPS certificates.
 
 Your domain: $DDNS_DOMAIN" \
-        14 60 "" 3>&1 1>&2 2>&3) || exit 1
+            14 60 "" 3>&1 1>&2 2>&3) || exit 1
 
-    if [ -n "$LE_EMAIL" ]; then
-        USE_LETSENCRYPT=true
+        if [ -n "$LE_EMAIL" ]; then
+            USE_LETSENCRYPT=true
+        fi
     fi
 fi
 
 # ═══════════════════════════════════════════════════════════
 # Step 5: Server Port
 # ═══════════════════════════════════════════════════════════
-if [ "$USE_LETSENCRYPT" = true ]; then
+if [ "$USE_LETSENCRYPT" = true ] || [ -n "$CERT_PATH" ]; then
     DEFAULT_PORT="443"
 fi
 
@@ -235,7 +259,7 @@ The installer will now:
 
   1. ✅ Install Node.js (if not present)
   2. ✅ Install npm packages
-  3. $([ "$USE_LETSENCRYPT" = true ] && echo '✅ Install certbot and obtain SSL certificate' || echo '⏭️  Skip SSL (no DDNS)')
+  3. $(if [ "$USE_LETSENCRYPT" = true ]; then echo '✅ Install certbot and obtain SSL certificate'; elif [ -n "$CERT_PATH" ]; then echo '✅ Use existing custom SSL certificate'; else echo '⏭️  Skip SSL (no DDNS)'; fi)
   4. ✅ Write configuration
   5. ✅ Configure/Update systemd service
 
