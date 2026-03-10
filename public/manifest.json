@@ -1,0 +1,25 @@
+{
+    "name": "Antigravity Remote",
+    "short_name": "AG Remote",
+    "description": "Professional remote control for Antigravity AI sessions",
+    "start_url": "/",
+    "scope": "/",
+    "display": "standalone",
+    "orientation": "portrait",
+    "background_color": "#1a1a1a",
+    "theme_color": "#242424",
+    "icons": [
+        {
+            "src": "/icons/icon-192x192.png",
+            "sizes": "192x192",
+            "type": "image/png",
+            "purpose": "any maskable"
+        },
+        {
+            "src": "/icons/icon-512x512.png",
+            "sizes": "512x512",
+            "type": "image/png",
+            "purpose": "any maskable"
+        }
+    ]
+}

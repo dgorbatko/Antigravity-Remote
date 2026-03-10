@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Antigravity Remote</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="manifest" href="/manifest.json">
+    <meta name="theme-color" content="#1a1a1a">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="AG Remote">
+    <link rel="apple-touch-icon" href="/icons/icon-192x192.png">
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <meta name="description" content="Professional remote control for Antigravity AI sessions">
+</head>
+<body>
+    <div id="app">
+        <!-- SSL Banner -->
+        <div class="ssl-banner" id="sslBanner" style="display: none;">
+            <span>⚠️ Not Secure — HTTP</span>
+            <button onclick="enableHttps()">Enable HTTPS</button>
+            <button class="dismiss-btn" onclick="this.parentElement.style.display='none'">×</button>
+        </div>
+
+        <!-- Top Bar -->
+        <div class="top-bar">
+            <div class="top-bar-left">
+                <div class="status-dot" id="statusDot"></div>
+                <div>
+                    <div class="top-bar-title" id="topBarTitle">Antigravity Remote</div>
+                    <div class="top-bar-subtitle" id="topBarSubtitle">Connecting...</div>
+                </div>
+            </div>
+            <div class="top-bar-right">
+                <button class="icon-btn" id="projectsBtn" title="Projects" onclick="showProjectPicker()">
+                    <svg viewBox="0 0 24 24"><path d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z"/></svg>
+                </button>
+                <button class="icon-btn" id="historyBtn" title="History" onclick="showChatHistory()">
+                    <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                </button>
+                <button class="icon-btn" id="settingsBtn" title="Settings" onclick="openDrawer()">
+                    <svg viewBox="0 0 24 24"><line x1="4" y1="21" x2="4" y2="14"/><line x1="4" y1="10" x2="4" y2="3"/><line x1="12" y1="21" x2="12" y2="12"/><line x1="12" y1="8" x2="12" y2="3"/><line x1="20" y1="21" x2="20" y2="16"/><line x1="20" y1="12" x2="20" y2="3"/><line x1="1" y1="14" x2="7" y2="14"/><line x1="9" y1="8" x2="15" y2="8"/><line x1="17" y1="16" x2="23" y2="16"/></svg>
+                </button>
+            </div>
+        </div>
+
+        <!-- Project Picker -->
+        <div class="project-picker" id="projectPicker">
+            <div class="project-picker-header">
+                <h2>📁 Your Projects</h2>
+                <p>Select a project to open in Antigravity</p>
+            </div>
+            <div class="project-grid" id="projectGrid">
+                <!-- Populated dynamically -->
+            </div>
+        </div>
+
+        <!-- Chat View -->
+        <div class="chat-view" id="chatView">
+            <div class="chat-container" id="chatContainer">
+                <div class="chat-content" id="chatContent">
+                    <div class="loading-state" id="loadingState">
+                        <div class="loading-spinner"></div>
+                        <p>Waiting for chat data...</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Generation Indicator Bar -->
+        <div class="generation-bar" id="generationBar">
+            <div class="gen-dots"><div class="gen-dot"></div><div class="gen-dot"></div><div class="gen-dot"></div></div>
+            <span>Agent is generating...</span>
+            <button class="stop-btn" onclick="stopGeneration()">⏹ Stop</button>
+        </div>
+
+        <!-- Continue Bar -->
+        <div class="continue-bar" id="continueBar">
+            <span>Agent paused</span>
+            <button class="continue-btn" onclick="continueGeneration()">▶ Continue</button>
+        </div>
+
+        <!-- Scroll to Bottom FAB -->
+        <button class="fab" id="scrollFab" onclick="scrollToBottom()">
+            <svg viewBox="0 0 24 24"><path d="M12 5v14M19 12l-7 7-7-7"/></svg>
+        </button>
+
+        <!-- Input Section -->
+        <div class="input-section" id="inputSection">
+            <div class="input-container">
+                <div class="input-wrapper">
+                    <button class="input-action-btn" id="attachBtn" onclick="document.getElementById('fileInput').click()">
+                        <svg viewBox="0 0 24 24"><path d="M21.44 11.05l-9.19 9.19a6 6 0 01-8.49-8.49l9.19-9.19a4 4 0 015.66 5.66l-9.2 9.19a2 2 0 01-2.83-2.83l8.49-8.48"/></svg>
+                    </button>
+                    <input type="file" id="fileInput" multiple accept="image/*,video/*" style="display:none">
+                    <textarea id="messageInput" placeholder="Message..." rows="1"></textarea>
+                </div>
+                <button class="send-btn" id="sendBtn" onclick="sendMessage()">
+                    <svg viewBox="0 0 24 24"><path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"/></svg>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Settings Drawer -->
+    <div class="drawer-overlay" id="drawerOverlay" onclick="closeDrawer()">
+        <div class="drawer-panel" onclick="event.stopPropagation()">
+            <div class="drawer-header">
+                <h3>Settings</h3>
+                <button class="icon-btn" onclick="closeDrawer()">
+                    <svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+                </button>
+            </div>
+            <div class="drawer-body">
+                <div class="drawer-section-title">Actions</div>
+                <div class="drawer-item" onclick="startNewChat()">
+                    <div class="item-icon"><svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></div>
+                    <div class="item-text"><div class="item-title">New Chat</div></div>
+                </div>
+                <div class="drawer-item" onclick="openModeModal()">
+                    <div class="item-icon"><svg viewBox="0 0 24 24"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg></div>
+                    <div class="item-text">
+                        <div class="item-title">Mode</div>
+                        <div class="item-subtitle" id="modeText">Fast</div>
+                    </div>
+                    <div class="item-arrow">›</div>
+                </div>
+                <div class="drawer-item" onclick="openModelModal()">
+                    <div class="item-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg></div>
+                    <div class="item-text">
+                        <div class="item-title">Model</div>
+                        <div class="item-subtitle" id="modelText">Select Model</div>
+                    </div>
+                    <div class="item-arrow">›</div>
+                </div>
+
+                <div class="drawer-section-title" id="wsChatsTitle" style="display:none">Workspace Chats</div>
+                <div id="wsChatsContainer"></div>
+            </div>
+            <button class="drawer-close" onclick="closeDrawer()">Close</button>
+        </div>
+    </div>
+
+    <!-- Mode/Model Modal -->
+    <div class="modal-overlay" id="modalOverlay" onclick="closeModal()">
+        <div class="modal-panel" onclick="event.stopPropagation()">
+            <div class="modal-title" id="modalTitle">Select</div>
+            <div id="modalOptions"></div>
+            <button class="modal-cancel" onclick="closeModal()">Cancel</button>
+        </div>
+    </div>
+
+    <!-- History Layer -->
+    <div class="history-layer" id="historyLayer">
+        <div class="history-header">
+            <button class="icon-btn" onclick="hideHistory()">
+                <svg viewBox="0 0 24 24"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+            </button>
+            <h2>Conversations</h2>
+            <div style="width:36px"></div>
+        </div>
+        <div class="history-content" id="historyList"></div>
+    </div>
+
+    <script src="js/app.js"></script>
+</body>
+</html>

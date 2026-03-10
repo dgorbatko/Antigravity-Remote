@@ -1,0 +1,675 @@
+<div id="conversation" class="flex w-full grow flex-col overflow-y-hidden overflow-x-clip pr-px"><div class="flex w-full grow flex-col overflow-hidden"><div class="h-full overflow-y-auto min-h-0 w-full relative flex w-full grow flex-col overflow-y-auto"><div class="mx-auto w-full"><div><div class="relative flex flex-col gap-y-3 px-4"><div></div><div></div><div style="min-height: 554px;"><div style=""><div class="flex flex-col space-y-2"><div class="flex flex-row my-2 first:mt-1 last:mb-1"><div class="min-w-0 grow"><div class="flex flex-col gap-y-3"><div class="isolate"><button class="flex w-full items-center gap-2 text-left text-sm text-ide-text-color opacity-70 hover:opacity-100 transition-opacity"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" data-slot="icon" class="h-4 w-4 transition-transform -rotate-90"><path fill-rule="evenodd" d="M5.22 8.22a.75.75 0 0 1 1.06 0L10 11.94l3.72-3.72a.75.75 0 1 1 1.06 1.06l-4.25 4.25a.75.75 0 0 1-1.06 0L5.22 9.28a.75.75 0 0 1 0-1.06Z" clip-rule="evenodd"></path></svg><span class="cursor-pointer">Thought for 4s</span></button><div class="overflow-hidden transition-all duration-300 ease-in-out relative max-h-0 opacity-0"><div class="pl-6 overflow-y-auto max-h-[200px] relative pt-2"><div><div class="leading-relaxed select-text text-sm flex flex-col [&amp;_code:not(pre_code)]:bg-code-background [&amp;_code:not(pre_code)]:text-code-foreground [&amp;_code:not(pre_code)]:rounded [&amp;_code:not(pre_code)]:px-1 [&amp;_code:not(pre_code)]:py-0.5 [&amp;_code:not(pre_code)]:text-[0.9em] [&amp;_summary]:cursor-pointer [&amp;_h1]:text-xl [&amp;_h2]:text-lg [&amp;_h3]:text-base [&amp;_h4]:text-sm [&amp;_h1]:font-semibold [&amp;_h2]:font-semibold [&amp;_h3]:font-medium [&amp;_h4]:font-medium [&amp;_h1]:mb-2 [&amp;_h1:not(:nth-child(-n+2))]:mt-6 [&amp;_h2]:mb-2 [&amp;_h2:not(:nth-child(-n+2))]:mt-6 [&amp;_h3]:mb-1 [&amp;_h3:not(:nth-child(-n+2))]:mt-3 [&amp;_h4]:mb-1 [&amp;_h4:not(:nth-child(-n+2))]:mt-3 [&amp;_li:has(input[type=&quot;checkbox&quot;])]:list-none [&amp;_ul:has(li_input[type=&quot;checkbox&quot;])]:list-none [&amp;_ul]:my-2 [&amp;_ol]:my-2 [&amp;&gt;ul.contains-task-list]:pl-0 [&amp;&gt;ol.contains-task-list]:pl-0 [&amp;_ul]:pl-10 [&amp;_ol]:pl-10 [&amp;&gt;ul:not(.contains-task-list)]:!pl-4 [&amp;&gt;ol:not(.contains-task-list)]:!pl-4 [&amp;_ul]:list-disc [&amp;_ol]:list-decimal [&amp;_input[type=&quot;checkbox&quot;]]:appearance-none [&amp;_input[type=&quot;checkbox&quot;]]:-bottom-[0.15rem] [&amp;_input[type=&quot;checkbox&quot;]]:w-4 [&amp;_input[type=&quot;checkbox&quot;]]:h-4 [&amp;_input[type=&quot;checkbox&quot;]]:border-solid [&amp;_input[type=&quot;checkbox&quot;]]:border-[1px] [&amp;_input[type=&quot;checkbox&quot;]]:border-gray-500/40 [&amp;_input[type=&quot;checkbox&quot;]]:rounded-sm [&amp;_input[type=&quot;checkbox&quot;]]:mr-3 [&amp;_input[type=&quot;checkbox&quot;]]:relative [&amp;_input[type=&quot;checkbox&quot;]]:cursor-default [&amp;_input[type=&quot;checkbox&quot;]]:bg-gray-500/5 [&amp;_input[type=&quot;checkbox&quot;]:checked]:bg-gray-500/20 [&amp;_input[type=&quot;checkbox&quot;]:checked]:border-gray-500/50 [&amp;_input[type=&quot;checkbox&quot;]:checked]:before:content-[&quot;✓&quot;] [&amp;_input[type=&quot;checkbox&quot;]:checked]:before:text-gray-500/80 [&amp;_input[type=&quot;checkbox&quot;]:checked]:before:absolute [&amp;_input[type=&quot;checkbox&quot;]:checked]:before:text-xs [&amp;_input[type=&quot;checkbox&quot;]:checked]:before:font-bold [&amp;_input[type=&quot;checkbox&quot;]:checked]:before:left-[1px] [&amp;_input[type=&quot;checkbox&quot;]:checked]:before:top-[-1px] [&amp;_.in-progress-checkbox]:before:content-[&quot;●&quot;] [&amp;_.in-progress-checkbox]:before:absolute [&amp;_.in-progress-checkbox]:before:text-[10px] [&amp;_.in-progress-checkbox]:before:left-[50%] [&amp;_.in-progress-checkbox]:before:translate-x-[-50%] [&amp;_.in-progress-checkbox]:before:top-[50%] [&amp;_.in-progress-checkbox]:before:translate-y-[-50%] [&amp;_.in-progress-checkbox]:before:animate-pulse [&amp;_li:has(&gt;input[type=&quot;checkbox&quot;]:checked):not(li:has(&gt;input[type=&quot;checkbox&quot;]:checked)_*)]:opacity-50 break-words [&amp;_strong]:block [&amp;_strong]:my-2 opacity-70"><style>
+/* Copied from remark-github-blockquote-alert/alert.css */
+@media (prefers-color-scheme: dark) {
+.markdown-alert {
+	--color-border-default: #30363d;
+	--color-accent-fg: #58a6ff;
+	--color-accent-emphasis: #1f6feb;
+	--color-danger-fg: #f85149;
+	--color-danger-emphasis: #da3633;
+	--color-attention-fg: #d29922;
+	--color-attention-emphasis: #9e6a03;
+	--color-done-fg: #a371f7;
+	--color-done-emphasis: #8957e5;
+	--color-success-fg: #3fb950;
+	--color-success-emphasis: #238636;
+	}
+}
+
+@media (prefers-color-scheme: light) {
+.markdown-alert {
+	--color-border-default: #d0d7de;
+	--color-accent-fg: #0969da;
+	--color-accent-emphasis: #0969da;
+	--color-danger-fg: #d1242f;
+	--color-danger-emphasis: #cf222e;
+	--color-attention-fg: #9a6700;
+	--color-attention-emphasis: #9a6700;
+	--color-done-fg: #8250df;
+	--color-done-emphasis: #8250df;
+	--color-success-fg: #1a7f37;
+	--color-success-emphasis: #1f883d;
+	}
+}
+
+.markdown-alert {
+	border-left: .25em solid var(--borderColor-default, var(--color-border-default));
+	color: inherit;
+	margin-bottom: 16px;
+	padding: .5rem 1em
+}
+
+.markdown-alert>:last-child {
+	margin-bottom: 0 !important
+}
+
+.markdown-alert .markdown-alert-title {
+	align-items: center;
+	display: flex;
+	font-size: 14px;
+	font-weight: 500;
+	line-height: 1
+}
+
+.markdown-alert .markdown-alert-title svg.octicon {
+	margin-right: 8px !important;
+	margin-right: var(--base-size-8, 8px) !important;
+	fill: currentColor;
+}
+
+.markdown-alert.markdown-alert-note {
+	border-left-color: var(--borderColor-accent-emphasis, var(--color-accent-emphasis))
+}
+
+.markdown-alert.markdown-alert-note .markdown-alert-title {
+	color: var(--color-accent-fg);
+	color: var(--fgColor-accent, var(--color-accent-fg))
+}
+
+.markdown-alert.markdown-alert-tip {
+	border-left-color: var(--borderColor-success-emphasis, var(--color-success-emphasis))
+}
+
+.markdown-alert.markdown-alert-tip .markdown-alert-title {
+	color: var(--color-success-fg);
+	color: var(--fgColor-success, var(--color-success-fg))
+}
+
+.markdown-alert.markdown-alert-important {
+	border-left-color: var(--borderColor-done-emphasis, var(--color-done-emphasis))
+}
+
+.markdown-alert.markdown-alert-important .markdown-alert-title {
+	color: var(--color-done-fg);
+	color: var(--fgColor-done, var(--color-done-fg))
+}
+
+.markdown-alert.markdown-alert-warning {
+	border-left-color: var(--borderColor-attention-emphasis, var(--color-attention-emphasis))
+}
+
+.markdown-alert.markdown-alert-warning .markdown-alert-title {
+	color: var(--color-attention-fg);
+	color: var(--fgColor-attention, var(--color-attention-fg))
+}
+
+.markdown-alert.markdown-alert-caution {
+	border-left-color: var(--borderColor-danger-emphasis, var(--color-danger-emphasis))
+}
+
+.markdown-alert.markdown-alert-caution .markdown-alert-title {
+	color: var(--color-danger-fg);
+	color: var(--fgColor-danger, var(--color-danger-fg))
+}
+
+div:has(> table),
+table th,
+table td {
+  border-style: solid;
+  border-color: rgba(128, 128, 128, 0.2);
+}
+</style><p node="[object Object]">The user says clicking on the Rubber Tangle card doesn't work. I need to check if the game is deployed on the server. Let me first find the deploy instructions in the project folder, then check if the game files exist at <code node="[object Object]" class="whitespace-pre-wrap" style="word-break: break-word;">/var/www/html/rubber-tangle/</code>.</p></div></div></div><div class="absolute left-0 right-4 top-0 h-4 bg-gradient-to-b from-ide-task-section-background to-transparent pointer-events-none"></div></div></div></div></div></div><div class="flex flex-row"><div class="min-w-0 grow"><div class="flex flex-col"><div class="group flex w-full min-w-0 items-center justify-between py-1"><div class="flex min-w-0 flex-1 items-center gap-x-1 text-sm"><div class="-ml-1 w-6 flex items-center justify-center [&amp;&gt;*]:!justify-center flex-none"><div class="relative flex h-4 w-4 flex-none cursor-pointer items-center justify-start rounded-sm transition-opacity duration-150"><div class="absolute inset-0 flex items-center justify-center transition-opacity duration-150 group-hover:opacity-0"><div data-tooltip-id="P0-194" class="relative flex h-4 w-4 flex-none items-center justify-start rounded-sm shadow-gray-500 transition-[shadow]"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="lucide lucide-search h-3.5 w-3.5 flex-none opacity-50"><path d="m21 21-4.34-4.34"></path><circle cx="11" cy="11" r="8"></circle></svg></div></div><div class="absolute inset-0 flex items-center justify-center transition-opacity duration-150 opacity-0 group-hover:opacity-100"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="lucide lucide-chevron-right h-3.5 w-3.5 flex-none opacity-50"><path d="m9 18 6-6-6-6"></path></svg></div></div></div><div class="truncate"><div data-tooltip-id="P0-193" class="flex cursor-pointer items-center gap-1 overflow-hidden text-sm group"><span>Searched</span><span class="overflow-hidden text-ellipsis whitespace-nowrap opacity-70">*deploy*</span></div></div><div class="ml-0.5 flex items-center text-sm text-gray-500/50 invisible opacity-0"><div class="h-3 w-3 animate-spin rounded-full border-2 border-gray-400 border-t-transparent"></div></div></div><div class="ml-1 shrink-0"><span class="text-sm text-gray-500">1 result</span></div></div><div class="flex gap-x-1 w-full text-sm"><div class="-ml-1 w-6 flex items-center justify-center [&amp;&gt;*]:!justify-center flex-none"></div><div class="flex-1 min-w-0 [&amp;&gt;*]:!p-0 [&amp;&gt;*]:!ml-0"></div></div></div></div></div><div class="flex flex-row"><div class="min-w-0 grow"><div class="flex flex-col gap-2 border-gray-500/25 border rounded-lg my-1"><div><div class="mb-1 px-2 py-1 text-sm border-b border-gray-500/25 flex items-center justify-between"><span class="opacity-60">Ran command</span><button data-tooltip-id="P0-196" class="cursor-pointer flex items-center gap-1 opacity-60 transition-opacity hover:opacity-90">Open<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="lucide lucide-external-link h-3.5 w-3.5"><path d="M15 3h6v6"></path><path d="M10 14 21 3"></path><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path></svg></button></div><div class="flex grow items-start justify-between px-2 py-1 cursor-default"><pre class="whitespace-pre-wrap break-all font-mono text-sm"><span data-tooltip-id="P0-197" class="min-w-0 overflow-hidden text-ellipsis whitespace-nowrap font-mono text-sm opacity-50">~/…/rubber-tangle</span><span class="opacity-50"> $ </span>ssh myserver "ls -la /var/www/html/rubber-tangle/ 2&gt;&amp;1 | head -20"</pre><button type="button" data-tooltip-id="P0-198" class="flex h-5 w-5 cursor-pointer items-center justify-center rounded-sm p-1 opacity-50 hover:opacity-100"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="lucide lucide-copy h-4 w-4"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"></rect><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"></path></svg></button></div><div><pre class="relative max-h-[200px] overflow-y-auto whitespace-pre-wrap break-all px-2 py-1 font-mono text-sm"><div>total 76
+drwxrwxr-x 7 dgorbatko dgorbatko 4096 Mar  6 21:13 .
+drwxr-xr-x 9 root      root      4096 Mar  6 21:13 ..
+drwxrwxr-x 3 dgorbatko dgorbatko 4096 Mar  1 16:34 build
+-rw-r--r-- 1 dgorbatko dgorbatko 3097 Mar  6 21:13 DEPLOY.md
+drwxrwxr-x 2 dgorbatko dgorbatko 4096 Mar  6 09:06 docs
+-rw-rw-r-- 1 dgorbatko dgorbatko  229 Mar  6 20:48 icon.svg
+-rw-rw-r-- 1 dgorbatko dgorbatko 4451 Mar  6 21:13 index.html
+-rw-rw-r-- 1 dgorbatko dgorbatko  178 Mar  3 21:20 live_rope.js
+-rw-rw-r-- 1 dgorbatko dgorbatko  349 Mar  6 21:13 manifest.json
+drwxrwxr-x 2 dgorbatko dgorbatko 4096 Mar  4 00:05 puppeteer_test
+-rw-rw-r-- 1 dgorbatko dgorbatko 1433 Mar  6 21:13 rename.py
+-rw-rw-r-- 1 dgorbatko dgorbatko  353 Mar  6 21:13 revert.sh
+drwxrwxr-x 2 dgorbatko dgorbatko 4096 Mar  3 21:17 server_sync
+drwxrwxr-x 2 dgorbatko dgorbatko 4096 Mar  6 09:12 src
+-rw-r--r-- 1 dgorbatko dgorbatko 9924 Mar  3 20:21 style.css
+-rw-rw-r-- 1 dgorbatko dgorbatko  829 Mar  6 21:13 sw.js</div></pre></div><div class="flex items-center justify-between rounded-b border-t border-gray-500/25 pl-1 pr-2 py-1 text-sm"><div class="min-w-0"><button id="headlessui-listbox-button-P0-200" type="button" aria-haspopup="listbox" aria-expanded="false" data-headlessui-state="" class="flex cursor-pointer items-center gap-1 rounded-sm px-1 py-0.5 text-sm hover:bg-gray-500/10 focus:outline-none min-w-0 max-w-full"><span class="opacity-70 truncate">Always run</span><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="lucide lucide-chevron-up h-3 w-3 opacity-50 shrink-0"><path d="m18 15-6-6-6 6"></path></svg></button><div class="z-50" style="position: absolute; left: 0px; top: 0px; transform: translate(21px, 4444px);"></div></div><div class="ml-auto flex items-center gap-2"><span class="opacity-60">Exit code 0</span></div></div></div></div></div></div><div class="flex flex-row"><div class="min-w-0 grow"><div class="flex flex-col"><div class="group flex w-full min-w-0 items-center justify-between py-1"><div class="flex min-w-0 flex-1 items-center gap-x-1 text-sm"><div class="-ml-1 w-6 flex items-center justify-center [&amp;&gt;*]:!justify-center flex-none"><div data-tooltip-id="P0-202" class="relative flex h-4 w-4 flex-none items-center justify-start rounded-sm shadow-gray-500 transition-[shadow]"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="lucide lucide-file h-3.5 w-3.5 flex-none opacity-50"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"></path><path d="M14 2v4a2 2 0 0 0 2 2h4"></path></svg></div></div><div class="truncate"><div class="flex flex-row items-center gap-1 overflow-hidden whitespace-nowrap"><span class="shrink-0">Analyzed</span><div class="flex items-center overflow-hidden"><span class="inline-flex items-center gap-0.5 rounded-md align-middle text-sm font-medium transition-[opacity,background-color] cursor-pointer hover:bg-gray-500/20 select-text" style="padding: 1px 0.25rem 1px 0.125rem;" draggable="true"><span style="display: inline-flex; align-items: center; vertical-align: middle;"><img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjQiIGhlaWdodD0iMjQiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTMgMTUuNzE0M1Y4SDUuMzIyNThMNy42NDUxNiAxMC44MzYxTDkuOTY3NzQgOEgxMi4yOTAzVjE1LjcxNDNIOS45Njc3NFYxMS4yODk5TDcuNjQ1MTYgMTQuMTI2MUw1LjMyMjU4IDExLjI4OTlWMTUuNzE0M0gzWk0xNy41MTYxIDE1LjcxNDNMMTQuMDMyMyAxMS45NzA2SDE2LjM1NDhWOEgxOC42Nzc0VjExLjk3MDZIMjFMMTcuNTE2MSAxNS43MTQzWiIgZmlsbD0iIzYwQTVGQSIvPgo8L3N2Zz4K" width="16px" height="16px" style="min-width: 16px; display: inline-block; min-height: 16px; transform: translateY(-1px);"></span><span class="inline-flex break-all leading-tight"><span>DEPLOY.md<span class="opacity-50 ml-0.5">#L1-61</span></span></span></span></div></div></div><div class="ml-0.5 flex items-center text-sm text-gray-500/50 invisible opacity-0"><div class="h-3 w-3 animate-spin rounded-full border-2 border-gray-400 border-t-transparent"></div></div></div></div><div class="flex gap-x-1 w-full text-sm"><div class="-ml-1 w-6 flex items-center justify-center [&amp;&gt;*]:!justify-center flex-none"></div><div class="flex-1 min-w-0 [&amp;&gt;*]:!p-0 [&amp;&gt;*]:!ml-0"></div></div></div></div></div><div class="flex flex-row my-2 first:mt-1 last:mb-1"><div class="min-w-0 grow"><div class="flex flex-col gap-y-3"><div class="leading-relaxed select-text text-sm flex flex-col [&amp;_code:not(pre_code)]:bg-code-background [&amp;_code:not(pre_code)]:text-code-foreground [&amp;_code:not(pre_code)]:rounded [&amp;_code:not(pre_code)]:px-1 [&amp;_code:not(pre_code)]:py-0.5 [&amp;_code:not(pre_code)]:text-[0.9em] [&amp;_summary]:cursor-pointer [&amp;_h1]:text-xl [&amp;_h2]:text-lg [&amp;_h3]:text-base [&amp;_h4]:text-sm [&amp;_h1]:font-semibold [&amp;_h2]:font-semibold [&amp;_h3]:font-medium [&amp;_h4]:font-medium [&amp;_h1]:mb-2 [&amp;_h1:not(:nth-child(-n+2))]:mt-6 [&amp;_h2]:mb-2 [&amp;_h2:not(:nth-child(-n+2))]:mt-6 [&amp;_h3]:mb-1 [&amp;_h3:not(:nth-child(-n+2))]:mt-3 [&amp;_h4]:mb-1 [&amp;_h4:not(:nth-child(-n+2))]:mt-3 [&amp;_li:has(input[type=&quot;checkbox&quot;])]:list-none [&amp;_ul:has(li_input[type=&quot;checkbox&quot;])]:list-none [&amp;_ul]:my-2 [&amp;_ol]:my-2 [&amp;&gt;ul.contains-task-list]:pl-0 [&amp;&gt;ol.contains-task-list]:pl-0 [&amp;_ul]:pl-10 [&amp;_ol]:pl-10 [&amp;&gt;ul:not(.contains-task-list)]:!pl-4 [&amp;&gt;ol:not(.contains-task-list)]:!pl-4 [&amp;_ul]:list-disc [&amp;_ol]:list-decimal [&amp;_input[type=&quot;checkbox&quot;]]:appearance-none [&amp;_input[type=&quot;checkbox&quot;]]:-bottom-[0.15rem] [&amp;_input[type=&quot;checkbox&quot;]]:w-4 [&amp;_input[type=&quot;checkbox&quot;]]:h-4 [&amp;_input[type=&quot;checkbox&quot;]]:border-solid [&amp;_input[type=&quot;checkbox&quot;]]:border-[1px] [&amp;_input[type=&quot;checkbox&quot;]]:border-gray-500/40 [&amp;_input[type=&quot;checkbox&quot;]]:rounded-sm [&amp;_input[type=&quot;checkbox&quot;]]:mr-3 [&amp;_input[type=&quot;checkbox&quot;]]:relative [&amp;_input[type=&quot;checkbox&quot;]]:cursor-default [&amp;_input[type=&quot;checkbox&quot;]]:bg-gray-500/5 [&amp;_input[type=&quot;checkbox&quot;]:checked]:bg-gray-500/20 [&amp;_input[type=&quot;checkbox&quot;]:checked]:border-gray-500/50 [&amp;_input[type=&quot;checkbox&quot;]:checked]:before:content-[&quot;✓&quot;] [&amp;_input[type=&quot;checkbox&quot;]:checked]:before:text-gray-500/80 [&amp;_input[type=&quot;checkbox&quot;]:checked]:before:absolute [&amp;_input[type=&quot;checkbox&quot;]:checked]:before:text-xs [&amp;_input[type=&quot;checkbox&quot;]:checked]:before:font-bold [&amp;_input[type=&quot;checkbox&quot;]:checked]:before:left-[1px] [&amp;_input[type=&quot;checkbox&quot;]:checked]:before:top-[-1px] [&amp;_.in-progress-checkbox]:before:content-[&quot;●&quot;] [&amp;_.in-progress-checkbox]:before:absolute [&amp;_.in-progress-checkbox]:before:text-[10px] [&amp;_.in-progress-checkbox]:before:left-[50%] [&amp;_.in-progress-checkbox]:before:translate-x-[-50%] [&amp;_.in-progress-checkbox]:before:top-[50%] [&amp;_.in-progress-checkbox]:before:translate-y-[-50%] [&amp;_.in-progress-checkbox]:before:animate-pulse [&amp;_li:has(&gt;input[type=&quot;checkbox&quot;]:checked):not(li:has(&gt;input[type=&quot;checkbox&quot;]:checked)_*)]:opacity-50 break-words"><style>
+/* Copied from remark-github-blockquote-alert/alert.css */
+@media (prefers-color-scheme: dark) {
+.markdown-alert {
+	--color-border-default: #30363d;
+	--color-accent-fg: #58a6ff;
+	--color-accent-emphasis: #1f6feb;
+	--color-danger-fg: #f85149;
+	--color-danger-emphasis: #da3633;
+	--color-attention-fg: #d29922;
+	--color-attention-emphasis: #9e6a03;
+	--color-done-fg: #a371f7;
+	--color-done-emphasis: #8957e5;
+	--color-success-fg: #3fb950;
+	--color-success-emphasis: #238636;
+	}
+}
+
+@media (prefers-color-scheme: light) {
+.markdown-alert {
+	--color-border-default: #d0d7de;
+	--color-accent-fg: #0969da;
+	--color-accent-emphasis: #0969da;
+	--color-danger-fg: #d1242f;
+	--color-danger-emphasis: #cf222e;
+	--color-attention-fg: #9a6700;
+	--color-attention-emphasis: #9a6700;
+	--color-done-fg: #8250df;
+	--color-done-emphasis: #8250df;
+	--color-success-fg: #1a7f37;
+	--color-success-emphasis: #1f883d;
+	}
+}
+
+.markdown-alert {
+	border-left: .25em solid var(--borderColor-default, var(--color-border-default));
+	color: inherit;
+	margin-bottom: 16px;
+	padding: .5rem 1em
+}
+
+.markdown-alert>:last-child {
+	margin-bottom: 0 !important
+}
+
+.markdown-alert .markdown-alert-title {
+	align-items: center;
+	display: flex;
+	font-size: 14px;
+	font-weight: 500;
+	line-height: 1
+}
+
+.markdown-alert .markdown-alert-title svg.octicon {
+	margin-right: 8px !important;
+	margin-right: var(--base-size-8, 8px) !important;
+	fill: currentColor;
+}
+
+.markdown-alert.markdown-alert-note {
+	border-left-color: var(--borderColor-accent-emphasis, var(--color-accent-emphasis))
+}
+
+.markdown-alert.markdown-alert-note .markdown-alert-title {
+	color: var(--color-accent-fg);
+	color: var(--fgColor-accent, var(--color-accent-fg))
+}
+
+.markdown-alert.markdown-alert-tip {
+	border-left-color: var(--borderColor-success-emphasis, var(--color-success-emphasis))
+}
+
+.markdown-alert.markdown-alert-tip .markdown-alert-title {
+	color: var(--color-success-fg);
+	color: var(--fgColor-success, var(--color-success-fg))
+}
+
+.markdown-alert.markdown-alert-important {
+	border-left-color: var(--borderColor-done-emphasis, var(--color-done-emphasis))
+}
+
+.markdown-alert.markdown-alert-important .markdown-alert-title {
+	color: var(--color-done-fg);
+	color: var(--fgColor-done, var(--color-done-fg))
+}
+
+.markdown-alert.markdown-alert-warning {
+	border-left-color: var(--borderColor-attention-emphasis, var(--color-attention-emphasis))
+}
+
+.markdown-alert.markdown-alert-warning .markdown-alert-title {
+	color: var(--color-attention-fg);
+	color: var(--fgColor-attention, var(--color-attention-fg))
+}
+
+.markdown-alert.markdown-alert-caution {
+	border-left-color: var(--borderColor-danger-emphasis, var(--color-danger-emphasis))
+}
+
+.markdown-alert.markdown-alert-caution .markdown-alert-title {
+	color: var(--color-danger-fg);
+	color: var(--fgColor-danger, var(--color-danger-fg))
+}
+
+div:has(> table),
+table th,
+table td {
+  border-style: solid;
+  border-color: rgba(128, 128, 128, 0.2);
+}
+</style><p node="[object Object]">Вижу инструкцию. Сервер уже содержит файлы в <code node="[object Object]" class="whitespace-pre-wrap" style="word-break: break-word;">/var/www/html/rubber-tangle/</code>, но давай проверю, что там <code node="[object Object]" class="whitespace-pre-wrap" style="word-break: break-word;">index.html</code> рабочий. Скорее всего проблема в nginx — нет конфига или он ещё указывает на <code node="[object Object]" class="whitespace-pre-wrap" style="word-break: break-word;">unrope</code>. Проверю:</p></div></div></div></div><div class="flex flex-row"><div class="min-w-0 grow"><div class="flex flex-col gap-2 border-gray-500/25 border rounded-lg my-1"><div><div class="mb-1 px-2 py-1 text-sm border-b border-gray-500/25 flex items-center justify-between"><span class="opacity-60">Ran command</span><button data-tooltip-id="P0-206" class="cursor-pointer flex items-center gap-1 opacity-60 transition-opacity hover:opacity-90">Open<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="lucide lucide-external-link h-3.5 w-3.5"><path d="M15 3h6v6"></path><path d="M10 14 21 3"></path><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path></svg></button></div><div class="flex grow items-start justify-between px-2 py-1 cursor-default"><pre class="whitespace-pre-wrap break-all font-mono text-sm"><span data-tooltip-id="P0-207" class="min-w-0 overflow-hidden text-ellipsis whitespace-nowrap font-mono text-sm opacity-50">~/…/rubber-tangle</span><span class="opacity-50"> $ </span>ssh myserver "ls /etc/nginx/conf.d/ &amp;&amp; echo '---' &amp;&amp; cat /etc/nginx/conf.d/rubber-tangle.conf 2&gt;/dev/null || echo 'no rubber-tangle.conf' &amp;&amp; echo '===' &amp;&amp; cat /etc/nginx/conf.d/unrope.conf 2&gt;/dev/null || echo 'no unrope.conf'"</pre><button type="button" data-tooltip-id="P0-208" class="flex h-5 w-5 cursor-pointer items-center justify-center rounded-sm p-1 opacity-50 hover:opacity-100"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="lucide lucide-copy h-4 w-4"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"></rect><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"></path></svg></button></div><div><pre class="relative max-h-[200px] overflow-y-auto whitespace-pre-wrap break-all px-2 py-1 font-mono text-sm"><div>---
+no rubber-tangle.conf
+===
+no unrope.conf</div></pre></div><div class="flex items-center justify-between rounded-b border-t border-gray-500/25 pl-1 pr-2 py-1 text-sm"><div class="min-w-0"><button id="headlessui-listbox-button-P0-210" type="button" aria-haspopup="listbox" aria-expanded="false" data-headlessui-state="" class="flex cursor-pointer items-center gap-1 rounded-sm px-1 py-0.5 text-sm hover:bg-gray-500/10 focus:outline-none min-w-0 max-w-full"><span class="opacity-70 truncate">Always run</span><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="lucide lucide-chevron-up h-3 w-3 opacity-50 shrink-0"><path d="m18 15-6-6-6 6"></path></svg></button><div class="z-50" style="position: absolute; left: 0px; top: 0px; transform: translate(21px, 4970px);"></div></div><div class="ml-auto flex items-center gap-2"><span class="opacity-60">Exit code 0</span></div></div></div></div></div></div><div class="flex flex-row"><div class="min-w-0 grow"><div class="flex flex-col gap-2 border-gray-500/25 border rounded-lg my-1"><div><div class="mb-1 px-2 py-1 text-sm border-b border-gray-500/25 flex items-center justify-between"><span class="opacity-60">Ran command</span><button data-tooltip-id="P0-212" class="cursor-pointer flex items-center gap-1 opacity-60 transition-opacity hover:opacity-90">Open<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="lucide lucide-external-link h-3.5 w-3.5"><path d="M15 3h6v6"></path><path d="M10 14 21 3"></path><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path></svg></button></div><div class="flex grow items-start justify-between px-2 py-1 cursor-default"><pre class="whitespace-pre-wrap break-all font-mono text-sm"><span data-tooltip-id="P0-213" class="min-w-0 overflow-hidden text-ellipsis whitespace-nowrap font-mono text-sm opacity-50">~/…/rubber-tangle</span><span class="opacity-50"> $ </span>ssh myserver "ls /etc/nginx/conf.d/"</pre><button type="button" data-tooltip-id="P0-214" class="flex h-5 w-5 cursor-pointer items-center justify-center rounded-sm p-1 opacity-50 hover:opacity-100"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="lucide lucide-copy h-4 w-4"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"></rect><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"></path></svg></button></div><div class="flex items-center justify-between rounded-b border-t border-gray-500/25 pl-1 pr-2 py-1 text-sm"><div class="min-w-0"><button id="headlessui-listbox-button-P0-216" type="button" aria-haspopup="listbox" aria-expanded="false" data-headlessui-state="" class="flex cursor-pointer items-center gap-1 rounded-sm px-1 py-0.5 text-sm hover:bg-gray-500/10 focus:outline-none min-w-0 max-w-full"><span class="opacity-70 truncate">Always run</span><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="lucide lucide-chevron-up h-3 w-3 opacity-50 shrink-0"><path d="m18 15-6-6-6 6"></path></svg></button><div class="z-50" style="position: absolute; left: 0px; top: 0px; transform: translate(21px, 5113px);"></div></div><div class="ml-auto flex items-center gap-2"><span class="opacity-60">Exit code 0</span></div></div></div></div></div></div><div class="flex flex-row"><div class="min-w-0 grow"><div class="flex flex-col gap-2 border-gray-500/25 border rounded-lg my-1"><div><div class="mb-1 px-2 py-1 text-sm border-b border-gray-500/25 flex items-center justify-between"><span class="opacity-60">Ran command</span><button data-tooltip-id="P0-218" class="cursor-pointer flex items-center gap-1 opacity-60 transition-opacity hover:opacity-90">Open<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="lucide lucide-external-link h-3.5 w-3.5"><path d="M15 3h6v6"></path><path d="M10 14 21 3"></path><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path></svg></button></div><div class="flex grow items-start justify-between px-2 py-1 cursor-default"><pre class="whitespace-pre-wrap break-all font-mono text-sm"><span data-tooltip-id="P0-219" class="min-w-0 overflow-hidden text-ellipsis whitespace-nowrap font-mono text-sm opacity-50">~/…/rubber-tangle</span><span class="opacity-50"> $ </span>ssh myserver "cat /etc/nginx/sites-enabled/default | head -80"</pre><button type="button" data-tooltip-id="P0-220" class="flex h-5 w-5 cursor-pointer items-center justify-center rounded-sm p-1 opacity-50 hover:opacity-100"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="lucide lucide-copy h-4 w-4"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"></rect><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"></path></svg></button></div><div><pre class="relative max-h-[200px] overflow-y-auto whitespace-pre-wrap break-all px-2 py-1 font-mono text-sm"><div>cat: /etc/nginx/sites-enabled/default: No such file or directory</div></pre></div><div class="flex items-center justify-between rounded-b border-t border-gray-500/25 pl-1 pr-2 py-1 text-sm"><div class="min-w-0"><button id="headlessui-listbox-button-P0-222" type="button" aria-haspopup="listbox" aria-expanded="false" data-headlessui-state="" class="flex cursor-pointer items-center gap-1 rounded-sm px-1 py-0.5 text-sm hover:bg-gray-500/10 focus:outline-none min-w-0 max-w-full"><span class="opacity-70 truncate">Always run</span><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="lucide lucide-chevron-up h-3 w-3 opacity-50 shrink-0"><path d="m18 15-6-6-6 6"></path></svg></button><div class="z-50" style="position: absolute; left: 0px; top: 0px; transform: translate(21px, 5337px);"></div></div><div class="ml-auto flex items-center gap-2"><span class="opacity-60">Exit code 0</span></div></div></div></div></div></div><div class="flex flex-row"><div class="min-w-0 grow"><div class="flex flex-col gap-2 border-gray-500/25 border rounded-lg my-1"><div><div class="mb-1 px-2 py-1 text-sm border-b border-gray-500/25 flex items-center justify-between"><span class="opacity-60">Ran command</span><button data-tooltip-id="P0-224" class="cursor-pointer flex items-center gap-1 opacity-60 transition-opacity hover:opacity-90">Open<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="lucide lucide-external-link h-3.5 w-3.5"><path d="M15 3h6v6"></path><path d="M10 14 21 3"></path><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path></svg></button></div><div class="flex grow items-start justify-between px-2 py-1 cursor-default"><pre class="whitespace-pre-wrap break-all font-mono text-sm"><span data-tooltip-id="P0-225" class="min-w-0 overflow-hidden text-ellipsis whitespace-nowrap font-mono text-sm opacity-50">~/…/rubber-tangle</span><span class="opacity-50"> $ </span>ssh myserver "ls /etc/nginx/sites-enabled/ 2&gt;/dev/null; echo '---'; cat /etc/nginx/nginx.conf | grep -A5 'server\|root\|location' | head -60"</pre><button type="button" data-tooltip-id="P0-226" class="flex h-5 w-5 cursor-pointer items-center justify-center rounded-sm p-1 opacity-50 hover:opacity-100"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="lucide lucide-copy h-4 w-4"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"></rect><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"></path></svg></button></div><div><pre class="relative max-h-[200px] overflow-y-auto whitespace-pre-wrap break-all px-2 py-1 font-mono text-sm"><div>element-rtc
+matrix-jitsi
+powerbi_reports
+rustdesk-24031989
+rustdesk-nipio
+rustdesk-tunnel
+---
+        # server_tokens off;
+
+        # server_names_hash_bucket_size 64;
+        # server_name_in_redirect off;
+
+        include /etc/nginx/mime.types;
+        default_type application/octet-stream;
+
+        ##
+--
+        ssl_prefer_server_ciphers on;
+
+        ##
+        # Logging Settings
+        ##
+
+--
+#       server {
+#               listen     localhost:110;
+#               protocol   pop3;
+#               proxy      on;
+#       }
+#
+#       server {
+#               listen     localhost:143;
+#               protocol   imap;
+#               proxy      on;
+#       }
+#}</div></pre></div><div class="flex items-center justify-between rounded-b border-t border-gray-500/25 pl-1 pr-2 py-1 text-sm"><div class="min-w-0"><button id="headlessui-listbox-button-P0-228" type="button" aria-haspopup="listbox" aria-expanded="false" data-headlessui-state="" class="flex cursor-pointer items-center gap-1 rounded-sm px-1 py-0.5 text-sm hover:bg-gray-500/10 focus:outline-none min-w-0 max-w-full"><span class="opacity-70 truncate">Always run</span><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="lucide lucide-chevron-up h-3 w-3 opacity-50 shrink-0"><path d="m18 15-6-6-6 6"></path></svg></button><div class="z-50" style="position: absolute; left: 0px; top: 0px; transform: translate(21px, 5735px);"></div></div><div class="ml-auto flex items-center gap-2"><span class="opacity-60">Exit code 0</span></div></div></div></div></div></div><div class="flex flex-row"><div class="min-w-0 grow"><div class="flex flex-col gap-2 border-gray-500/25 border rounded-lg my-1"><div><div class="mb-1 px-2 py-1 text-sm border-b border-gray-500/25 flex items-center justify-between"><span class="opacity-60">Ran command</span><button data-tooltip-id="P0-230" class="cursor-pointer flex items-center gap-1 opacity-60 transition-opacity hover:opacity-90">Open<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="lucide lucide-external-link h-3.5 w-3.5"><path d="M15 3h6v6"></path><path d="M10 14 21 3"></path><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path></svg></button></div><div class="flex grow items-start justify-between px-2 py-1 cursor-default"><pre class="whitespace-pre-wrap break-all font-mono text-sm"><span data-tooltip-id="P0-231" class="min-w-0 overflow-hidden text-ellipsis whitespace-nowrap font-mono text-sm opacity-50">~/…/rubber-tangle</span><span class="opacity-50"> $ </span>ssh myserver "grep -r 'gorbatko.ddns.net' /etc/nginx/sites-enabled/ 2&gt;/dev/null; grep -r 'root' /etc/nginx/sites-enabled/ 2&gt;/dev/null | head -20"</pre><button type="button" data-tooltip-id="P0-232" class="flex h-5 w-5 cursor-pointer items-center justify-center rounded-sm p-1 opacity-50 hover:opacity-100"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="lucide lucide-copy h-4 w-4"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"></rect><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"></path></svg></button></div><div><pre class="relative max-h-[200px] overflow-y-auto whitespace-pre-wrap break-all px-2 py-1 font-mono text-sm"><div>/etc/nginx/sites-enabled/matrix-jitsi:    server_name gorbatko.ddns.net;
+/etc/nginx/sites-enabled/matrix-jitsi:    server_name gorbatko.ddns.net;
+/etc/nginx/sites-enabled/matrix-jitsi:    ssl_certificate /etc/letsencrypt/live/gorbatko.ddns.net/fullchain.pem;
+/etc/nginx/sites-enabled/matrix-jitsi:    ssl_certificate_key /etc/letsencrypt/live/gorbatko.ddns.net/privkey.pem;
+/etc/nginx/sites-enabled/matrix-jitsi:        root /var/www/html/landing;
+/etc/nginx/sites-enabled/matrix-jitsi:        root /var/www/html/landing;</div></pre></div><div class="flex items-center justify-between rounded-b border-t border-gray-500/25 pl-1 pr-2 py-1 text-sm"><div class="min-w-0"><button id="headlessui-listbox-button-P0-234" type="button" aria-haspopup="listbox" aria-expanded="false" data-headlessui-state="" class="flex cursor-pointer items-center gap-1 rounded-sm px-1 py-0.5 text-sm hover:bg-gray-500/10 focus:outline-none min-w-0 max-w-full"><span class="opacity-70 truncate">Always run</span><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="lucide lucide-chevron-up h-3 w-3 opacity-50 shrink-0"><path d="m18 15-6-6-6 6"></path></svg></button><div class="z-50" style="position: absolute; left: 0px; top: 0px; transform: translate(21px, 6150px);"></div></div><div class="ml-auto flex items-center gap-2"><span class="opacity-60">Exit code 0</span></div></div></div></div></div></div><div class="flex flex-row"><div class="min-w-0 grow"><div class="flex flex-col gap-2 border-gray-500/25 border rounded-lg my-1"><div><div class="mb-1 px-2 py-1 text-sm border-b border-gray-500/25 flex items-center justify-between"><span class="opacity-60">Ran command</span><button data-tooltip-id="P0-236" class="cursor-pointer flex items-center gap-1 opacity-60 transition-opacity hover:opacity-90">Open<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="lucide lucide-external-link h-3.5 w-3.5"><path d="M15 3h6v6"></path><path d="M10 14 21 3"></path><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path></svg></button></div><div class="flex grow items-start justify-between px-2 py-1 cursor-default"><pre class="whitespace-pre-wrap break-all font-mono text-sm"><span data-tooltip-id="P0-237" class="min-w-0 overflow-hidden text-ellipsis whitespace-nowrap font-mono text-sm opacity-50">~/…/rubber-tangle</span><span class="opacity-50"> $ </span>ssh myserver "cat /etc/nginx/sites-enabled/matrix-jitsi"</pre><button type="button" data-tooltip-id="P0-238" class="flex h-5 w-5 cursor-pointer items-center justify-center rounded-sm p-1 opacity-50 hover:opacity-100"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="lucide lucide-copy h-4 w-4"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"></rect><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"></path></svg></button></div><div><pre class="relative max-h-[200px] overflow-y-auto whitespace-pre-wrap break-all px-2 py-1 font-mono text-sm"><div># Main server configuration for Matrix and Jitsi
+server {
+    listen 80;
+    listen [::]:80;
+    server_name gorbatko.ddns.net;
+
+    location /.well-known {
+        alias /var/www/html/.well-known;
+        try_files $uri $uri/ =404;
+    }
+
+    location / {
+        return 301 https://$server_name$request_uri;
+    }
+}
+
+server {
+    listen 443 ssl http2;
+    listen [::]:443 ssl http2;
+    server_name gorbatko.ddns.net;
+
+    ssl_certificate /etc/letsencrypt/live/gorbatko.ddns.net/fullchain.pem;
+    ssl_certificate_key /etc/letsencrypt/live/gorbatko.ddns.net/privkey.pem;
+
+    ssl_protocols TLSv1.2 TLSv1.3;
+    ssl_ciphers ECDHE-RSA-AES256-GCM-SHA512:DHE-RSA-AES256-GCM-SHA512:ECDHE-RSA-AES256-GCM-SHA384:DHE-RSA-AES256-GCM-SHA384;
+    ssl_prefer_server_ciphers off;
+
+    # Security headers
+    add_header X-Frame-Options DENY;
+    add_header X-Content-Type-Options nosniff;
+    add_header X-XSS-Protection "1; mode=block";
+    add_header Strict-Transport-Security "max-age=31536000; includeSubDomains" always;
+
+    location /.well-known {
+        alias /var/www/html/.well-known;
+        try_files $uri $uri/ =404;
+    }
+
+    # Matrix Synapse
+    location ~ ^(/_matrix|/_synapse) {
+        proxy_pass http://localhost:8008;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+        proxy_read_timeout 300s;
+        proxy_buffering off;
+    }
+
+    # RustDesk ID Server (hbbs WS)
+    location /ws/id {
+        add_header Access-Control-Allow-Origin "https://rustdesk.com" always;
+        add_header Access-Control-Allow-Methods "GET, POST, OPTIONS" always;
+        add_header Access-Control-Allow-Headers "Origin, Content-Type, Accept, Authorization" always;
+        add_header Access-Control-Allow-Credentials "true" always;
+        
+        if ($request_method = 'OPTIONS') {
+            add_header Access-Control-Allow-Origin "https://rustdesk.com";
+            add_header Access-Control-Allow-Methods "GET, POST, OPTIONS";
+            add_header Access-Control-Allow-Headers "Origin, Content-Type, Accept, Authorization";
+            add_header Content-Length 0;
+            add_header Content-Type text/plain;
+            return 204;
+        }
+        
+        proxy_pass http://127.0.0.1:21118;
+        proxy_http_version 1.1;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection "Upgrade";
+        proxy_set_header Host $host;
+        proxy_read_timeout 3600s;
+        proxy_send_timeout 3600s;
+    }
+
+    # RustDesk Relay Server (hbbr WS)
+    location /ws/relay {
+        add_header Access-Control-Allow-Origin "https://rustdesk.com" always;
+        add_header Access-Control-Allow-Methods "GET, POST, OPTIONS" always;
+        add_header Access-Control-Allow-Headers "Origin, Content-Type, Accept, Authorization" always;
+        add_header Access-Control-Allow-Credentials "true" always;
+        
+        if ($request_method = 'OPTIONS') {
+            add_header Access-Control-Allow-Origin "https://rustdesk.com";
+            add_header Access-Control-Allow-Methods "GET, POST, OPTIONS";
+            add_header Access-Control-Allow-Headers "Origin, Content-Type, Accept, Authorization";
+            add_header Content-Length 0;
+            add_header Content-Type text/plain;
+            return 204;
+        }
+        
+        proxy_pass http://127.0.0.1:21119;
+        proxy_http_version 1.1;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection "Upgrade";
+        proxy_set_header Host $host;
+        proxy_read_timeout 3600s;
+        proxy_send_timeout 3600s;
+    }
+
+    # ShapeOut Game
+    location /shapeout {
+        alias /var/www/html/shapeout;
+        index index.html;
+        try_files $uri $uri/ /shapeout/index.html;
+    }
+
+    # Jitsi Meet
+    location /jitsi {
+        proxy_pass http://localhost:8000;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+        proxy_http_version 1.1;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection "upgrade";
+        proxy_read_timeout 300s;
+        proxy_send_timeout 300s;
+        proxy_connect_timeout 300s;
+        proxy_buffering off;
+        proxy_cache off;
+    }
+
+    # UnityNotes App
+    location /notrix {
+        alias /var/www/html/notrix;
+        index index.html;
+        try_files $uri $uri/ /notrix/index.html;
+    }
+
+    # Crash Test Game
+    location /crash-test {
+        alias /var/www/html/crash-test;
+        index index.html;
+        try_files $uri $uri/ /crash-test/index.html;
+    }
+
+    # UnRope Game
+    location /unrope {
+        alias /var/www/html/unrope;
+        index index.html;
+        try_files $uri $uri/ /unrope/index.html;
+
+        # Prevent aggressive caching during development
+        add_header Cache-Control "no-cache, no-store, must-revalidate";
+        add_header Pragma "no-cache";
+        expires 0;
+    }
+
+    # Landing page — list of all projects
+    location = / {
+        root /var/www/html/landing;
+        index index.html;
+    }
+
+    # Fallback for any unknown paths
+    location / {
+        root /var/www/html/landing;
+        try_files $uri $uri/ /index.html;
+    }
+}</div></pre></div><div class="flex items-center justify-between rounded-b border-t border-gray-500/25 pl-1 pr-2 py-1 text-sm"><div class="min-w-0"><button id="headlessui-listbox-button-P0-240" type="button" aria-haspopup="listbox" aria-expanded="false" data-headlessui-state="" class="flex cursor-pointer items-center gap-1 rounded-sm px-1 py-0.5 text-sm hover:bg-gray-500/10 focus:outline-none min-w-0 max-w-full"><span class="opacity-70 truncate">Always run</span><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="lucide lucide-chevron-up h-3 w-3 opacity-50 shrink-0"><path d="m18 15-6-6-6 6"></path></svg></button><div class="z-50" style="position: absolute; left: 0px; top: 0px; transform: translate(21px, 6493px);"></div></div><div class="ml-auto flex items-center gap-2"><span class="opacity-60">Exit code 0</span></div></div></div></div></div></div><div class="flex flex-row my-2 first:mt-1 last:mb-1"><div class="min-w-0 grow"><div class="flex flex-col gap-y-3"><div class="leading-relaxed select-text text-sm flex flex-col [&amp;_code:not(pre_code)]:bg-code-background [&amp;_code:not(pre_code)]:text-code-foreground [&amp;_code:not(pre_code)]:rounded [&amp;_code:not(pre_code)]:px-1 [&amp;_code:not(pre_code)]:py-0.5 [&amp;_code:not(pre_code)]:text-[0.9em] [&amp;_summary]:cursor-pointer [&amp;_h1]:text-xl [&amp;_h2]:text-lg [&amp;_h3]:text-base [&amp;_h4]:text-sm [&amp;_h1]:font-semibold [&amp;_h2]:font-semibold [&amp;_h3]:font-medium [&amp;_h4]:font-medium [&amp;_h1]:mb-2 [&amp;_h1:not(:nth-child(-n+2))]:mt-6 [&amp;_h2]:mb-2 [&amp;_h2:not(:nth-child(-n+2))]:mt-6 [&amp;_h3]:mb-1 [&amp;_h3:not(:nth-child(-n+2))]:mt-3 [&amp;_h4]:mb-1 [&amp;_h4:not(:nth-child(-n+2))]:mt-3 [&amp;_li:has(input[type=&quot;checkbox&quot;])]:list-none [&amp;_ul:has(li_input[type=&quot;checkbox&quot;])]:list-none [&amp;_ul]:my-2 [&amp;_ol]:my-2 [&amp;&gt;ul.contains-task-list]:pl-0 [&amp;&gt;ol.contains-task-list]:pl-0 [&amp;_ul]:pl-10 [&amp;_ol]:pl-10 [&amp;&gt;ul:not(.contains-task-list)]:!pl-4 [&amp;&gt;ol:not(.contains-task-list)]:!pl-4 [&amp;_ul]:list-disc [&amp;_ol]:list-decimal [&amp;_input[type=&quot;checkbox&quot;]]:appearance-none [&amp;_input[type=&quot;checkbox&quot;]]:-bottom-[0.15rem] [&amp;_input[type=&quot;checkbox&quot;]]:w-4 [&amp;_input[type=&quot;checkbox&quot;]]:h-4 [&amp;_input[type=&quot;checkbox&quot;]]:border-solid [&amp;_input[type=&quot;checkbox&quot;]]:border-[1px] [&amp;_input[type=&quot;checkbox&quot;]]:border-gray-500/40 [&amp;_input[type=&quot;checkbox&quot;]]:rounded-sm [&amp;_input[type=&quot;checkbox&quot;]]:mr-3 [&amp;_input[type=&quot;checkbox&quot;]]:relative [&amp;_input[type=&quot;checkbox&quot;]]:cursor-default [&amp;_input[type=&quot;checkbox&quot;]]:bg-gray-500/5 [&amp;_input[type=&quot;checkbox&quot;]:checked]:bg-gray-500/20 [&amp;_input[type=&quot;checkbox&quot;]:checked]:border-gray-500/50 [&amp;_input[type=&quot;checkbox&quot;]:checked]:before:content-[&quot;✓&quot;] [&amp;_input[type=&quot;checkbox&quot;]:checked]:before:text-gray-500/80 [&amp;_input[type=&quot;checkbox&quot;]:checked]:before:absolute [&amp;_input[type=&quot;checkbox&quot;]:checked]:before:text-xs [&amp;_input[type=&quot;checkbox&quot;]:checked]:before:font-bold [&amp;_input[type=&quot;checkbox&quot;]:checked]:before:left-[1px] [&amp;_input[type=&quot;checkbox&quot;]:checked]:before:top-[-1px] [&amp;_.in-progress-checkbox]:before:content-[&quot;●&quot;] [&amp;_.in-progress-checkbox]:before:absolute [&amp;_.in-progress-checkbox]:before:text-[10px] [&amp;_.in-progress-checkbox]:before:left-[50%] [&amp;_.in-progress-checkbox]:before:translate-x-[-50%] [&amp;_.in-progress-checkbox]:before:top-[50%] [&amp;_.in-progress-checkbox]:before:translate-y-[-50%] [&amp;_.in-progress-checkbox]:before:animate-pulse [&amp;_li:has(&gt;input[type=&quot;checkbox&quot;]:checked):not(li:has(&gt;input[type=&quot;checkbox&quot;]:checked)_*)]:opacity-50 break-words"><style>
+/* Copied from remark-github-blockquote-alert/alert.css */
+@media (prefers-color-scheme: dark) {
+.markdown-alert {
+	--color-border-default: #30363d;
+	--color-accent-fg: #58a6ff;
+	--color-accent-emphasis: #1f6feb;
+	--color-danger-fg: #f85149;
+	--color-danger-emphasis: #da3633;
+	--color-attention-fg: #d29922;
+	--color-attention-emphasis: #9e6a03;
+	--color-done-fg: #a371f7;
+	--color-done-emphasis: #8957e5;
+	--color-success-fg: #3fb950;
+	--color-success-emphasis: #238636;
+	}
+}
+
+@media (prefers-color-scheme: light) {
+.markdown-alert {
+	--color-border-default: #d0d7de;
+	--color-accent-fg: #0969da;
+	--color-accent-emphasis: #0969da;
+	--color-danger-fg: #d1242f;
+	--color-danger-emphasis: #cf222e;
+	--color-attention-fg: #9a6700;
+	--color-attention-emphasis: #9a6700;
+	--color-done-fg: #8250df;
+	--color-done-emphasis: #8250df;
+	--color-success-fg: #1a7f37;
+	--color-success-emphasis: #1f883d;
+	}
+}
+
+.markdown-alert {
+	border-left: .25em solid var(--borderColor-default, var(--color-border-default));
+	color: inherit;
+	margin-bottom: 16px;
+	padding: .5rem 1em
+}
+
+.markdown-alert>:last-child {
+	margin-bottom: 0 !important
+}
+
+.markdown-alert .markdown-alert-title {
+	align-items: center;
+	display: flex;
+	font-size: 14px;
+	font-weight: 500;
+	line-height: 1
+}
+
+.markdown-alert .markdown-alert-title svg.octicon {
+	margin-right: 8px !important;
+	margin-right: var(--base-size-8, 8px) !important;
+	fill: currentColor;
+}
+
+.markdown-alert.markdown-alert-note {
+	border-left-color: var(--borderColor-accent-emphasis, var(--color-accent-emphasis))
+}
+
+.markdown-alert.markdown-alert-note .markdown-alert-title {
+	color: var(--color-accent-fg);
+	color: var(--fgColor-accent, var(--color-accent-fg))
+}
+
+.markdown-alert.markdown-alert-tip {
+	border-left-color: var(--borderColor-success-emphasis, var(--color-success-emphasis))
+}
+
+.markdown-alert.markdown-alert-tip .markdown-alert-title {
+	color: var(--color-success-fg);
+	color: var(--fgColor-success, var(--color-success-fg))
+}
+
+.markdown-alert.markdown-alert-important {
+	border-left-color: var(--borderColor-done-emphasis, var(--color-done-emphasis))
+}
+
+.markdown-alert.markdown-alert-important .markdown-alert-title {
+	color: var(--color-done-fg);
+	color: var(--fgColor-done, var(--color-done-fg))
+}
+
+.markdown-alert.markdown-alert-warning {
+	border-left-color: var(--borderColor-attention-emphasis, var(--color-attention-emphasis))
+}
+
+.markdown-alert.markdown-alert-warning .markdown-alert-title {
+	color: var(--color-attention-fg);
+	color: var(--fgColor-attention, var(--color-attention-fg))
+}
+
+.markdown-alert.markdown-alert-caution {
+	border-left-color: var(--borderColor-danger-emphasis, var(--color-danger-emphasis))
+}
+
+.markdown-alert.markdown-alert-caution .markdown-alert-title {
+	color: var(--color-danger-fg);
+	color: var(--fgColor-danger, var(--color-danger-fg))
+}
+
+div:has(> table),
+table th,
+table td {
+  border-style: solid;
+  border-color: rgba(128, 128, 128, 0.2);
+}
+</style><p node="[object Object]">Нашёл проблему! В nginx конфиге есть <code node="[object Object]" class="whitespace-pre-wrap" style="word-break: break-word;">location /unrope</code>, но нет <code node="[object Object]" class="whitespace-pre-wrap" style="word-break: break-word;">location /rubber-tangle</code>. Нужно добавить новый блок. Сейчас сделаю:</p></div></div></div></div><div class="flex flex-row"><div class="min-w-0 grow"><div class="flex flex-col gap-2 border-gray-500/25 border rounded-lg my-1"><div><div class="mb-1 px-2 py-1 text-sm border-b border-gray-500/25 flex items-center justify-between"><span class="opacity-60">Ran command</span><button data-tooltip-id="P0-244" class="cursor-pointer flex items-center gap-1 opacity-60 transition-opacity hover:opacity-90">Open<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="lucide lucide-external-link h-3.5 w-3.5"><path d="M15 3h6v6"></path><path d="M10 14 21 3"></path><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path></svg></button></div><div class="flex grow items-start justify-between px-2 py-1 cursor-default"><pre class="whitespace-pre-wrap break-all font-mono text-sm"><span data-tooltip-id="P0-245" class="min-w-0 overflow-hidden text-ellipsis whitespace-nowrap font-mono text-sm opacity-50">~/…/rubber-tangle</span><span class="opacity-50"> $ </span>ssh -t myserver "sudo sed -i '/# UnRope Game/,/expires 0;/{
+s/# UnRope Game/# Rubber Tangle Game/
+s|location /unrope|location /rubber-tangle|
+s|alias /var/www/html/unrope|alias /var/www/html/rubber-tangle|
+s|/unrope/index.html|/rubber-tangle/index.html|
+}' /etc/nginx/sites-enabled/matrix-jitsi &amp;&amp; sudo nginx -t &amp;&amp; sudo systemctl reload nginx"</pre><button type="button" data-tooltip-id="P0-246" class="flex h-5 w-5 cursor-pointer items-center justify-center rounded-sm p-1 opacity-50 hover:opacity-100"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="lucide lucide-copy h-4 w-4"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"></rect><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"></path></svg></button></div><div><pre class="relative max-h-[200px] overflow-y-auto whitespace-pre-wrap break-all px-2 py-1 font-mono text-sm"><div>nginx: the configuration file /etc/nginx/nginx.conf syntax is ok
+nginx: configuration file /etc/nginx/nginx.conf test is successful
+Connection to dgorbatko.ddns.net closed.</div></pre></div><div class="flex items-center justify-between rounded-b border-t border-gray-500/25 pl-1 pr-2 py-1 text-sm"><div class="min-w-0"><button id="headlessui-listbox-button-P0-248" type="button" aria-haspopup="listbox" aria-expanded="false" data-headlessui-state="" class="flex cursor-pointer items-center gap-1 rounded-sm px-1 py-0.5 text-sm hover:bg-gray-500/10 focus:outline-none min-w-0 max-w-full"><span class="opacity-70 truncate">Always run</span><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="lucide lucide-chevron-up h-3 w-3 opacity-50 shrink-0"><path d="m18 15-6-6-6 6"></path></svg></button><div class="z-50" style="position: absolute; left: 0px; top: 0px; transform: translate(21px, 7121px);"></div></div><div class="ml-auto flex items-center gap-2"><span class="opacity-60">Exit code 0</span></div></div></div></div></div></div><div class="flex flex-row my-2 first:mt-1 last:mb-1"><div class="min-w-0 grow"><div class="flex flex-col gap-y-3"><div class="leading-relaxed select-text text-sm flex flex-col [&amp;_code:not(pre_code)]:bg-code-background [&amp;_code:not(pre_code)]:text-code-foreground [&amp;_code:not(pre_code)]:rounded [&amp;_code:not(pre_code)]:px-1 [&amp;_code:not(pre_code)]:py-0.5 [&amp;_code:not(pre_code)]:text-[0.9em] [&amp;_summary]:cursor-pointer [&amp;_h1]:text-xl [&amp;_h2]:text-lg [&amp;_h3]:text-base [&amp;_h4]:text-sm [&amp;_h1]:font-semibold [&amp;_h2]:font-semibold [&amp;_h3]:font-medium [&amp;_h4]:font-medium [&amp;_h1]:mb-2 [&amp;_h1:not(:nth-child(-n+2))]:mt-6 [&amp;_h2]:mb-2 [&amp;_h2:not(:nth-child(-n+2))]:mt-6 [&amp;_h3]:mb-1 [&amp;_h3:not(:nth-child(-n+2))]:mt-3 [&amp;_h4]:mb-1 [&amp;_h4:not(:nth-child(-n+2))]:mt-3 [&amp;_li:has(input[type=&quot;checkbox&quot;])]:list-none [&amp;_ul:has(li_input[type=&quot;checkbox&quot;])]:list-none [&amp;_ul]:my-2 [&amp;_ol]:my-2 [&amp;&gt;ul.contains-task-list]:pl-0 [&amp;&gt;ol.contains-task-list]:pl-0 [&amp;_ul]:pl-10 [&amp;_ol]:pl-10 [&amp;&gt;ul:not(.contains-task-list)]:!pl-4 [&amp;&gt;ol:not(.contains-task-list)]:!pl-4 [&amp;_ul]:list-disc [&amp;_ol]:list-decimal [&amp;_input[type=&quot;checkbox&quot;]]:appearance-none [&amp;_input[type=&quot;checkbox&quot;]]:-bottom-[0.15rem] [&amp;_input[type=&quot;checkbox&quot;]]:w-4 [&amp;_input[type=&quot;checkbox&quot;]]:h-4 [&amp;_input[type=&quot;checkbox&quot;]]:border-solid [&amp;_input[type=&quot;checkbox&quot;]]:border-[1px] [&amp;_input[type=&quot;checkbox&quot;]]:border-gray-500/40 [&amp;_input[type=&quot;checkbox&quot;]]:rounded-sm [&amp;_input[type=&quot;checkbox&quot;]]:mr-3 [&amp;_input[type=&quot;checkbox&quot;]]:relative [&amp;_input[type=&quot;checkbox&quot;]]:cursor-default [&amp;_input[type=&quot;checkbox&quot;]]:bg-gray-500/5 [&amp;_input[type=&quot;checkbox&quot;]:checked]:bg-gray-500/20 [&amp;_input[type=&quot;checkbox&quot;]:checked]:border-gray-500/50 [&amp;_input[type=&quot;checkbox&quot;]:checked]:before:content-[&quot;✓&quot;] [&amp;_input[type=&quot;checkbox&quot;]:checked]:before:text-gray-500/80 [&amp;_input[type=&quot;checkbox&quot;]:checked]:before:absolute [&amp;_input[type=&quot;checkbox&quot;]:checked]:before:text-xs [&amp;_input[type=&quot;checkbox&quot;]:checked]:before:font-bold [&amp;_input[type=&quot;checkbox&quot;]:checked]:before:left-[1px] [&amp;_input[type=&quot;checkbox&quot;]:checked]:before:top-[-1px] [&amp;_.in-progress-checkbox]:before:content-[&quot;●&quot;] [&amp;_.in-progress-checkbox]:before:absolute [&amp;_.in-progress-checkbox]:before:text-[10px] [&amp;_.in-progress-checkbox]:before:left-[50%] [&amp;_.in-progress-checkbox]:before:translate-x-[-50%] [&amp;_.in-progress-checkbox]:before:top-[50%] [&amp;_.in-progress-checkbox]:before:translate-y-[-50%] [&amp;_.in-progress-checkbox]:before:animate-pulse [&amp;_li:has(&gt;input[type=&quot;checkbox&quot;]:checked):not(li:has(&gt;input[type=&quot;checkbox&quot;]:checked)_*)]:opacity-50 break-words"><style>
+/* Copied from remark-github-blockquote-alert/alert.css */
+@media (prefers-color-scheme: dark) {
+.markdown-alert {
+	--color-border-default: #30363d;
+	--color-accent-fg: #58a6ff;
+	--color-accent-emphasis: #1f6feb;
+	--color-danger-fg: #f85149;
+	--color-danger-emphasis: #da3633;
+	--color-attention-fg: #d29922;
+	--color-attention-emphasis: #9e6a03;
+	--color-done-fg: #a371f7;
+	--color-done-emphasis: #8957e5;
+	--color-success-fg: #3fb950;
+	--color-success-emphasis: #238636;
+	}
+}
+
+@media (prefers-color-scheme: light) {
+.markdown-alert {
+	--color-border-default: #d0d7de;
+	--color-accent-fg: #0969da;
+	--color-accent-emphasis: #0969da;
+	--color-danger-fg: #d1242f;
+	--color-danger-emphasis: #cf222e;
+	--color-attention-fg: #9a6700;
+	--color-attention-emphasis: #9a6700;
+	--color-done-fg: #8250df;
+	--color-done-emphasis: #8250df;
+	--color-success-fg: #1a7f37;
+	--color-success-emphasis: #1f883d;
+	}
+}
+
+.markdown-alert {
+	border-left: .25em solid var(--borderColor-default, var(--color-border-default));
+	color: inherit;
+	margin-bottom: 16px;
+	padding: .5rem 1em
+}
+
+.markdown-alert>:last-child {
+	margin-bottom: 0 !important
+}
+
+.markdown-alert .markdown-alert-title {
+	align-items: center;
+	display: flex;
+	font-size: 14px;
+	font-weight: 500;
+	line-height: 1
+}
+
+.markdown-alert .markdown-alert-title svg.octicon {
+	margin-right: 8px !important;
+	margin-right: var(--base-size-8, 8px) !important;
+	fill: currentColor;
+}
+
+.markdown-alert.markdown-alert-note {
+	border-left-color: var(--borderColor-accent-emphasis, var(--color-accent-emphasis))
+}
+
+.markdown-alert.markdown-alert-note .markdown-alert-title {
+	color: var(--color-accent-fg);
+	color: var(--fgColor-accent, var(--color-accent-fg))
+}
+
+.markdown-alert.markdown-alert-tip {
+	border-left-color: var(--borderColor-success-emphasis, var(--color-success-emphasis))
+}
+
+.markdown-alert.markdown-alert-tip .markdown-alert-title {
+	color: var(--color-success-fg);
+	color: var(--fgColor-success, var(--color-success-fg))
+}
+
+.markdown-alert.markdown-alert-important {
+	border-left-color: var(--borderColor-done-emphasis, var(--color-done-emphasis))
+}
+
+.markdown-alert.markdown-alert-important .markdown-alert-title {
+	color: var(--color-done-fg);
+	color: var(--fgColor-done, var(--color-done-fg))
+}
+
+.markdown-alert.markdown-alert-warning {
+	border-left-color: var(--borderColor-attention-emphasis, var(--color-attention-emphasis))
+}
+
+.markdown-alert.markdown-alert-warning .markdown-alert-title {
+	color: var(--color-attention-fg);
+	color: var(--fgColor-attention, var(--color-attention-fg))
+}
+
+.markdown-alert.markdown-alert-caution {
+	border-left-color: var(--borderColor-danger-emphasis, var(--color-danger-emphasis))
+}
+
+.markdown-alert.markdown-alert-caution .markdown-alert-title {
+	color: var(--color-danger-fg);
+	color: var(--fgColor-danger, var(--color-danger-fg))
+}
+
+div:has(> table),
+table th,
+table td {
+  border-style: solid;
+  border-color: rgba(128, 128, 128, 0.2);
+}
+</style><p node="[object Object]">Готово! Проблема была в <strong>nginx</strong> — конфиг всё ещё ссылался на <code node="[object Object]" class="whitespace-pre-wrap" style="word-break: break-word;">/unrope</code>, а папка на сервере уже называется <code node="[object Object]" class="whitespace-pre-wrap" style="word-break: break-word;">/rubber-tangle/</code>.</p>
+<p node="[object Object]">Я обновил блок в <code node="[object Object]" class="whitespace-pre-wrap" style="word-break: break-word;">/etc/nginx/sites-enabled/matrix-jitsi</code>:</p>
+<ul>
+<li node="[object Object]"><code node="[object Object]" class="whitespace-pre-wrap" style="word-break: break-word;">location /unrope</code> → <code node="[object Object]" class="whitespace-pre-wrap" style="word-break: break-word;">location /rubber-tangle</code></li>
+<li node="[object Object]"><code node="[object Object]" class="whitespace-pre-wrap" style="word-break: break-word;">alias /var/www/html/unrope</code> → <code node="[object Object]" class="whitespace-pre-wrap" style="word-break: break-word;">alias /var/www/html/rubber-tangle</code></li>
+<li node="[object Object]">Все fallback-пути тоже обновлены</li>
+</ul>
+<p node="[object Object]">Nginx тест прошёл (<code node="[object Object]" class="whitespace-pre-wrap" style="word-break: break-word;">syntax is ok</code>) и конфиг перезагружен. Теперь <a href="https://gorbatko.ddns.net/rubber-tangle/" class="text-link-color">gorbatko.ddns.net/rubber-tangle/</a> должен работать — попробуй нажать на карточку!</p></div></div></div></div></div><div class="pt-3"><div><div class="flex flex-col gap-2"><div class="flex flex-1 flex-row items-center justify-between gap-1 rounded-lg text-sm"><div class="ml-auto flex flex-row items-center gap-2"><div data-tooltip-id="up-P0-251" class="flex items-center gap-1 transition-[opacity,transform] duration-100 cursor-pointer opacity-70 hover:opacity-100 opacity-30"><span class="opacity-70">Good</span><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true" data-slot="icon" class="h-4 w-4"><path stroke-linecap="round" stroke-linejoin="round" d="M6.633 10.25c.806 0 1.533-.446 2.031-1.08a9.041 9.041 0 0 1 2.861-2.4c.723-.384 1.35-.956 1.653-1.715a4.498 4.498 0 0 0 .322-1.672V2.75a.75.75 0 0 1 .75-.75 2.25 2.25 0 0 1 2.25 2.25c0 1.152-.26 2.243-.723 3.218-.266.558.107 1.282.725 1.282m0 0h3.126c1.026 0 1.945.694 2.054 1.715.045.422.068.85.068 1.285a11.95 11.95 0 0 1-2.649 7.521c-.388.482-.987.729-1.605.729H13.48c-.483 0-.964-.078-1.423-.23l-3.114-1.04a4.501 4.501 0 0 0-1.423-.23H5.904m10.598-9.75H14.25M5.904 18.5c.083.205.173.405.27.602.197.4-.078.898-.523.898h-.908c-.889 0-1.713-.518-1.972-1.368a12 12 0 0 1-.521-3.507c0-1.553.295-3.036.831-4.398C3.387 9.953 4.167 9.5 5 9.5h1.053c.472 0 .745.556.5.96a8.958 8.958 0 0 0-1.302 4.665c0 1.194.232 2.333.654 3.375Z"></path></svg></div><div data-tooltip-id="down-P0-251" class="flex items-center gap-1 transition-[opacity,transform] duration-100 cursor-pointer opacity-70 hover:opacity-100 opacity-30"><span class="opacity-70">Bad</span><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true" data-slot="icon" class="h-4 w-4"><path stroke-linecap="round" stroke-linejoin="round" d="M7.498 15.25H4.372c-1.026 0-1.945-.694-2.054-1.715a12.137 12.137 0 0 1-.068-1.285c0-2.848.992-5.464 2.649-7.521C5.287 4.247 5.886 4 6.504 4h4.016a4.5 4.5 0 0 1 1.423.23l3.114 1.04a4.5 4.5 0 0 0 1.423.23h1.294M7.498 15.25c.618 0 .991.724.725 1.282A7.471 7.471 0 0 0 7.5 19.75 2.25 2.25 0 0 0 9.75 22a.75.75 0 0 0 .75-.75v-.633c0-.573.11-1.14.322-1.672.304-.76.93-1.33 1.653-1.715a9.04 9.04 0 0 0 2.86-2.4c.498-.634 1.226-1.08 2.032-1.08h.384m-10.253 1.5H9.7m8.075-9.75c.01.05.027.1.05.148.593 1.2.925 2.55.925 3.977 0 1.487-.36 2.89-.999 4.125m.023-8.25c-.076-.365.183-.75.575-.75h.908c.889 0 1.713.518 1.972 1.368.339 1.11.521 2.287.521 3.507 0 1.553-.295 3.036-.831 4.398-.306.774-1.086 1.227-1.918 1.227h-1.053c-.472 0-.745-.556-.5-.96a8.95 8.95 0 0 0 .303-.54"></path></svg></div></div></div></div></div></div></div><div class="whitespace-nowrap transition-opacity hidden opacity-0 pt-2"><span class="block max-w-full overflow-hidden text-ellipsis text-sm"></span></div></div></div><div class="transition-all duration-150 ease-in-out" style="min-height: 48px;"></div></div></div></div></div><div class="relative flex flex-col gap-8 text-ide-message-block-bot-color px-2"><div class="flex grow flex-col justify-start gap-8"><div class="relative flex flex-col mb-2"><div class="px-2"></div><div class="w-full flex flex-col items-stretch gap-2 box-border"></div></div></div></div></div>

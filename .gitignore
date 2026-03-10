@@ -1,0 +1,33 @@
+# Dependencies
+node_modules/
+
+# Environment & Secrets
+.env
+config.json
+
+# SSL Certificates
+certs/
+*.pem
+*.key
+*.cert
+
+# OS files
+.DS_Store
+Thumbs.db
+*.swp
+*~
+
+# IDE
+.vscode/
+.idea/
+
+# Logs
+*.log
+npm-debug.log*
+
+# Registry backups
+registry/
+
+# Build artifacts
+dist/
+build/
