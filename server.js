@@ -1575,8 +1575,20 @@ async function createServer() {
     const app = express();
 
     // Check for SSL certificates (Let's Encrypt from config, or local self-signed)
-    let keyPath = appConfig.sslKeyPath || join(__dirname, 'certs', 'server.key');
-    let certPath = appConfig.sslCertPath || join(__dirname, 'certs', 'server.cert');
+    let keyPath = appConfig.sslKeyPath;
+    let certPath = appConfig.sslCertPath;
+    
+    // Fallback to local self-signed certs if config paths are missing or files don't exist
+    if (!keyPath || !certPath || !fs.existsSync(keyPath) || !fs.existsSync(certPath)) {
+        keyPath = join(__dirname, 'certs', 'server.key');
+        certPath = join(__dirname, 'certs', 'server.cert');
+        if (fs.existsSync(keyPath) && fs.existsSync(certPath)) {
+            console.log('🔒 Using local self-signed SSL certificates (fallback)');
+        }
+    } else {
+        console.log('🔒 Using Let\'s Encrypt SSL certificates from config.json');
+    }
+
     const hasSSL = fs.existsSync(keyPath) && fs.existsSync(certPath);
 
     let server;
