@@ -509,7 +509,8 @@ async function showChatHistory() {
     try {
         const res = await fetchWithAuth('/chat-history');
         const data = await res.json();
-        const titles = data.titles || data.history || [];
+        const rawChats = data.chats || data.titles || data.history || [];
+        const titles = rawChats.map(c => typeof c === 'string' ? c : c.title).filter(Boolean);
 
         if (titles.length === 0) {
             list.innerHTML = '<div style="text-align:center;padding:40px;color:var(--text-muted)">No conversations found</div>';
