@@ -1336,6 +1336,61 @@ async function closeHistory(cdp) {
     return { error: 'Failed to close history panel' };
 }
 
+// Ensure Antigravity Chat panel is open
+async function ensureChatOpen(cdp) {
+    const EXP = `(async () => {
+        try {
+            // 1. Check if already open
+            const chatContainer = document.getElementById('conversation') || document.getElementById('chat') || document.getElementById('cascade') || document.querySelector('.chat-content');
+            if (chatContainer && chatContainer.offsetParent !== null) return { success: true, alreadyOpen: true };
+            
+            // 2. Try to find the viewlet icon in the activity bar
+            const icons = Array.from(document.querySelectorAll('.activitybar .action-item, .activitybar .action-item a'));
+            const agIcon = icons.find(el => {
+                const label = el.getAttribute('aria-label');
+                if (!label) return false;
+                const lower = label.toLowerCase();
+                return lower.includes('antigravity') || lower.includes('gemini') || lower.includes('chat');
+            });
+            
+            if (agIcon) {
+                agIcon.click();
+                await new Promise(r => setTimeout(r, 1500));
+                
+                const checkAgain = document.getElementById('conversation') || document.getElementById('chat') || document.getElementById('cascade') || document.querySelector('.chat-content');
+                if (checkAgain && checkAgain.offsetParent !== null) {
+                    return { success: true, method: 'activity_bar_click' };
+                }
+            }
+
+            // 3. Fallback: Try keyboard shortcut (Ctrl+L / Cmd+L)
+            const isMac = navigator.platform.toUpperCase().indexOf('MAC') >= 0;
+            document.dispatchEvent(new KeyboardEvent('keydown', { key: 'l', code: 'KeyL', ctrlKey: !isMac, metaKey: isMac, bubbles: true }));
+            await new Promise(r => setTimeout(r, 1500));
+            
+            return { success: true, method: 'shortcut_triggered' };
+        } catch(e) {
+            return { error: e.toString() };
+        }
+    })()`;
+
+    for (const ctx of cdp.contexts) {
+        try {
+            const res = await cdp.call("Runtime.evaluate", {
+                expression: EXP,
+                returnByValue: true,
+                awaitPromise: true,
+                contextId: ctx.id
+            });
+            if (res.result?.value?.success) {
+                console.log('👁️  Ensured Chat Panel is open:', res.result.value);
+                return res.result.value;
+            }
+        } catch (e) { }
+    }
+    return { error: 'Context failed to ensure chat open' };
+}
+
 // Check if a chat is currently open (has cascade element)
 async function hasChatOpen(cdp) {
     const EXP = `(() => {
@@ -1491,7 +1546,11 @@ async function initCDP() {
 
     console.log('🔌 Connecting to CDP...');
     cdpConnection = await connectCDP(cdpInfo.url);
-    console.log(`✅ Connected! Found ${cdpConnection.contexts.length} execution contexts\n`);
+    console.log(`✅ Connected! Found ${cdpConnection.contexts.length} execution contexts`);
+    
+    // Automatically open the chat view if it isn't visible
+    await ensureChatOpen(cdpConnection);
+    console.log('');
 }
 
 // Background polling
@@ -1925,20 +1984,13 @@ async function createServer() {
                 }
             }
 
-            if (!connected) {
-                activeProject = null;
-                console.log('❌ Failed to connect to CDP port after launch. An existing instance might be running without debugging enabled.');
-                return res.status(500).json({ 
-                    success: false,
-                    error: 'Antigravity is already open on the host machine without debugging enabled. Please close all Antigravity windows on the computer and try opening the project again.' 
-                });
-            }
-
             res.json({ 
                 success: true, 
                 project: activeProject,
-                cdpConnected: true,
-                message: 'Project opened and CDP connected' 
+                cdpConnected: connected,
+                message: connected 
+                    ? 'Project opened and CDP connected' 
+                    : 'Project opened but CDP not yet ready. It will auto-connect shortly.'
             });
         } catch (err) {
             console.error('Failed to open project:', err);
