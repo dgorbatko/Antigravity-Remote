@@ -1829,6 +1829,41 @@ async function createServer() {
         }
     });
 
+    // ── Utility: Discover desktop environment for background service launches ──
+    function getDesktopEnv() {
+        if (process.platform !== 'linux') return {};
+        
+        try {
+            // Find active desktop session to steal DISPLAY and XAUTHORITY
+            const pidCmd = 'pgrep -u $(id -u) -f "(gnome-shell|plasmashell|kwin_wayland|xfce4-session|mate-session|lxsession|sway)" | head -n 1';
+            const pid = execSync(pidCmd, { stdio: 'pipe' }).toString().trim();
+            
+            if (pid) {
+                const envOutput = execSync(`cat /proc/${pid}/environ`, { stdio: 'pipe' }).toString();
+                const envs = envOutput.split('\0');
+                const result = {};
+                for (const e of envs) {
+                    if (e.startsWith('DISPLAY=') || e.startsWith('XAUTHORITY=') || 
+                        e.startsWith('XDG_RUNTIME_DIR=') || e.startsWith('WAYLAND_DISPLAY=')) {
+                        const [k, v] = e.split('=');
+                        result[k] = v;
+                    }
+                }
+                return result;
+            }
+        } catch (err) {
+            console.log('⚠️ Could not automatically detect desktop environment');
+        }
+        
+        // Fallbacks for standard Ubuntu
+        const uid = process.getuid ? process.getuid() : 1000;
+        return {
+            DISPLAY: ':1',
+            XAUTHORITY: `/run/user/${uid}/gdm/Xauthority`,
+            XDG_RUNTIME_DIR: `/run/user/${uid}`
+        };
+    }
+
     // Open a project in Antigravity
     app.post('/open-project', async (req, res) => {
         const { path: projectPath, name } = req.body;
@@ -1862,11 +1897,15 @@ async function createServer() {
                 args.push(`--remote-debugging-port=${cdpPort}`);
             }
 
+            const desktopEnv = getDesktopEnv();
+            console.log('🖥️ Injecting Desktop Environment:', desktopEnv);
+
             // Spawn without holding the process
             const proc = spawn('antigravity', args, {
                 cwd: projectPath,
                 detached: true,
-                stdio: 'ignore'
+                stdio: 'ignore',
+                env: Object.assign({}, process.env, desktopEnv)
             });
             proc.unref();
 
