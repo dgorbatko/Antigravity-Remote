@@ -217,7 +217,8 @@ async function loadSnapshot() {
                 }
                 // Show loading state
                 if (currentView !== 'chat') showView('chat');
-                document.getElementById('loadingState').style.display = '';
+                const loader = document.getElementById('loadingState');
+                if (loader) loader.style.display = '';
             }
             return;
         }
@@ -231,7 +232,8 @@ async function loadSnapshot() {
 
         // Show chat view
         if (currentView !== 'chat') showView('chat');
-        document.getElementById('loadingState').style.display = 'none';
+        const loader = document.getElementById('loadingState');
+        if (loader) loader.style.display = 'none';
 
         // Update workspace name
         if (data.workspaceName) {
@@ -308,7 +310,12 @@ function applyDarkOverrides(container) {
             display: none !important;
         }
         .chat-content [class*="interaction-area"],
-        .chat-content [class*="agentSidePanel"] {
+        .chat-content [class*="agentSidePanel"],
+        .chat-content [id*="agentSidePanel"],
+        .chat-content [id*="InputBox"],
+        .chat-content [data-tooltip-id="audio-tooltip"],
+        .chat-content [data-tooltip-id*="input-send-button"],
+        .chat-content .mt-auto {
             display: none !important;
         }
     `;
