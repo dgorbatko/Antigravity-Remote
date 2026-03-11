@@ -1886,16 +1886,24 @@ async function createServer() {
                 }
             }
 
+            if (!connected) {
+                activeProject = null;
+                console.log('❌ Failed to connect to CDP port after launch. An existing instance might be running without debugging enabled.');
+                return res.status(500).json({ 
+                    success: false,
+                    error: 'Antigravity is already open on the host machine without debugging enabled. Please close all Antigravity windows on the computer and try opening the project again.' 
+                });
+            }
+
             res.json({ 
                 success: true, 
                 project: activeProject,
-                cdpConnected: connected,
-                message: connected 
-                    ? 'Project opened and CDP connected' 
-                    : 'Project opened but CDP not yet ready. It will auto-connect shortly.'
+                cdpConnected: true,
+                message: 'Project opened and CDP connected' 
             });
         } catch (err) {
             console.error('Failed to open project:', err);
+            activeProject = null;
             res.status(500).json({ error: err.message });
         }
     });
