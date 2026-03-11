@@ -1836,69 +1836,50 @@ async function createServer() {
         if (!fs.existsSync(projectPath)) return res.status(404).json({ error: 'Project path not found' });
 
         try {
-            // 1. Kill existing Antigravity process
-            if (antigravityProcess) {
-                console.log('🔄 Killing existing Antigravity process...');
-                antigravityProcess.kill('SIGTERM');
-                await new Promise(r => setTimeout(r, 1000));
-                try { antigravityProcess.kill('SIGKILL'); } catch (_) {}
-                antigravityProcess = null;
-            }
-
-            // Also kill any Antigravity running with CDP (not started by us)
-            try {
-                if (process.platform !== 'win32') {
-                    execSync('pkill -f "antigravity.*remote-debugging-port" || true', { stdio: 'pipe' });
-                } else {
-                    execSync('taskkill /F /FI "IMAGENAME eq antigravity*" 2>nul || exit 0', { stdio: 'pipe' });
-                }
-            } catch (_) {}
-
-            // Close existing CDP connection
-            if (cdpConnection?.ws) {
-                cdpConnection.ws.close();
-                cdpConnection = null;
-            }
-            lastSnapshot = null;
-            lastSnapshotHash = null;
-
-            await new Promise(r => setTimeout(r, 1500));
-
-            // 2. Launch Antigravity with debugging
-            const cdpPort = appConfig.cdpPort || 9000;
             console.log(`🚀 Opening project: ${name || basename(projectPath)}`);
             console.log(`   Path: ${projectPath}`);
-            console.log(`   CDP port: ${cdpPort}`);
 
-            antigravityProcess = spawn('antigravity', ['.', `--remote-debugging-port=${cdpPort}`], {
+            // Instead of killing the existing Antigravity (which would kill our AI session
+            // if we are run from inside it), we simply ask the existing main process to open the folder.
+            // Antigravity (VS Code) natively handles single-instance and IPC.
+            const cdpPort = appConfig.cdpPort || 9000;
+            
+            // Try to connect to see if CDP is already alive
+            let alreadyConnected = false;
+            try {
+                const cdpInfo = await discoverCDP();
+                if (cdpInfo && cdpInfo.port == cdpPort) {
+                    alreadyConnected = true;
+                    console.log('✅ CDP is already alive. Reusing existing Antigravity instance.');
+                }
+            } catch (e) {
+                // Not alive, we will start it normally
+            }
+
+            const args = [projectPath];
+            // If it's not already connected, we need to pass the debug port to the NEW instance
+            if (!alreadyConnected) {
+                args.push(`--remote-debugging-port=${cdpPort}`);
+            }
+
+            // Spawn without holding the process
+            const proc = spawn('antigravity', args, {
                 cwd: projectPath,
                 detached: true,
-                stdio: ['ignore', 'pipe', 'pipe']
+                stdio: 'ignore'
             });
-
-            antigravityProcess.stdout?.on('data', (data) => {
-                console.log(`[AG] ${data.toString().trim()}`);
-            });
-            antigravityProcess.stderr?.on('data', (data) => {
-                console.error(`[AG ERR] ${data.toString().trim()}`);
-            });
-
-            antigravityProcess.on('exit', (code) => {
-                console.log(`\u26a0\ufe0f  Antigravity exited with code ${code}`);
-                antigravityProcess = null;
-                activeProject = null;
-            });
+            proc.unref();
 
             activeProject = { name: name || basename(projectPath), path: projectPath };
 
-            // 3. Wait for CDP to become available (up to 15 seconds)
+            // Wait for CDP to become available
             let connected = false;
             for (let i = 0; i < 15; i++) {
                 await new Promise(r => setTimeout(r, 1000));
                 try {
                     await initCDP();
                     connected = true;
-                    console.log('✅ CDP connected to new Antigravity instance');
+                    console.log('✅ CDP connected successfully after opening project.');
                     break;
                 } catch (_) {
                     // Not ready yet

@@ -212,7 +212,7 @@ async function loadSnapshot() {
                 const projRes = await fetchWithAuth('/active-project');
                 const projData = await projRes.json();
                 if (!projData.activeProject && projData.configured) {
-                    showProjectPicker();
+                    if (currentView !== 'projects') showProjectPicker();
                     return;
                 }
                 // Show loading state
