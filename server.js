@@ -231,8 +231,12 @@ async function captureSnapshot(cdp) {
                       document.getElementById('cascade') ||
                       document.querySelector('[data-testid="conversation"]') ||
                       document.querySelector('[data-testid="chat-container"]') ||
-                      document.querySelector('.prose') ||
-                      document.querySelector('div[class*="chat"]');
+                      document.querySelector('.prose')?.closest('.split-view-view, .pane, .part, .sidebar') ||
+                      document.querySelector('.chat-content') ||
+                      document.querySelector('div[class*="chat-"]')?.closest('.split-view-view, .pane, .part, .sidebar') ||
+                      document.querySelector('svg.lucide-arrow-right')?.closest('.split-view-view, .pane, .part, .sidebar, aside') ||
+                      document.querySelector('.sidebar') ||
+                      document.body;
         if (!chatRoot) {
             const body = document.body;
             const childIds = Array.from(body.children).map(c => c.id).filter(id => id).join(', ');
@@ -1903,7 +1907,8 @@ async function createServer() {
                 const result = {};
                 for (const e of envs) {
                     if (e.startsWith('DISPLAY=') || e.startsWith('XAUTHORITY=') || 
-                        e.startsWith('XDG_RUNTIME_DIR=') || e.startsWith('WAYLAND_DISPLAY=')) {
+                        e.startsWith('XDG_RUNTIME_DIR=') || e.startsWith('WAYLAND_DISPLAY=') ||
+                        e.startsWith('DBUS_SESSION_BUS_ADDRESS=') || e.startsWith('XDG_SESSION_TYPE=')) {
                         const [k, v] = e.split('=');
                         result[k] = v;
                     }
@@ -1919,7 +1924,8 @@ async function createServer() {
         return {
             DISPLAY: ':1',
             XAUTHORITY: `/run/user/${uid}/gdm/Xauthority`,
-            XDG_RUNTIME_DIR: `/run/user/${uid}`
+            XDG_RUNTIME_DIR: `/run/user/${uid}`,
+            DBUS_SESSION_BUS_ADDRESS: `unix:path=/run/user/${uid}/bus`
         };
     }
 
